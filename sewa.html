@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RentBudaya – Detail Sewa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">RB</div>
+    <button class="btn-sewa-nav">Sewa</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <a class="back-link" href="#">
+      &lt; Kembali
+    </a>
+
+    <div class="content-row">
+
+      <!-- PHOTO -->
+      <div class="photo-wrap">
+        <!-- Ganti src dengan foto produk kamu -->
+        <img src="assets/image/kebaya.png" alt="Kebaya Beskap Solo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+        <div class="photo-placeholder" style="display:none">Foto Produk</div>
+      </div>
+
+      <!-- DETAIL CARD -->
+      <div class="detail-card">
+        <h2>Kebaya Beskap Solo</h2>
+        <p class="desc">
+          Kebaya Beludru dan Beskap Jawa bernuansa hitam emas.
+          Elegan, klasik, dan sangat cocok untuk acara pernikahan
+          atau prosesi adat formal.
+        </p>
+
+        <div class="divider"></div>
+
+        <!-- Model -->
+        <div class="option-row">
+          <span class="option-label">Model</span>
+          <div class="tags" id="model-tags">
+            <div class="tag active" data-group="model">Pria</div>
+            <div class="tag" data-group="model">Wanita</div>
+          </div>
+        </div>
+
+        <!-- Warna -->
+        <div class="option-row">
+          <span class="option-label">Warna</span>
+          <div class="tags" id="warna-tags">
+            <div class="tag active" data-group="warna">Hitam</div>
+            <div class="tag" data-group="warna">Biru</div>
+            <div class="tag" data-group="warna">Hijau</div>
+          </div>
+        </div>
+
+        <!-- Durasi Sewa -->
+        <div class="durasi-section">
+          <span class="option-label">Durasi Sewa</span>
+          <div class="date-row">
+            <div class="date-field">
+              <span>tanggal mulai</span>
+              <div class="date-input-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <input type="date" id="tgl-mulai"/>
+              </div>
+            </div>
+            <div class="date-field">
+              <span>tanggal selesai</span>
+              <div class="date-input-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <input type="date" id="tgl-selesai"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <div class="footer-bar">
+    <button class="btn-lanjut">Lanjut Ke Pembayaran</button>
+  </div>
+
+  <script>
+    // Tag toggle — single select per group
+    document.querySelectorAll('.tag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        const group = tag.dataset.group;
+        document.querySelectorAll(`.tag[data-group="${group}"]`).forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
