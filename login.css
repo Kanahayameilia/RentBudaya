@@ -1,0 +1,178 @@
+@import url('variables.css');
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.login-bg {
+  position: fixed;
+  inset: 0;
+  background: url(assets/image/image.png) center/cover no-repeat;
+  filter: brightness(0.55) saturate(0.9);
+  z-index: 0;
+}
+
+.login-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  background: rgba(250, 246, 241, 0.93);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 44px 40px 36px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.2);
+  animation: slideUp 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 3px;
+  background: var(--terracotta);
+  border-radius: 0 0 4px 4px;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--terracotta);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border-light);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.7);
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: #bfab9e;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(200,89,58,0.15);
+  background: #fff;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.remember input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--terracotta);
+  cursor: pointer;
+}
+
+.remember label {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.btn-masuk {
+  width: 100%;
+  padding: 14px;
+  background: var(--terracotta);
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(200,89,58,0.4);
+}
+
+.btn-masuk:hover {
+  background: var(--terracotta-dark);
+  box-shadow: 0 6px 18px rgba(200,89,58,0.5);
+}
+
+.btn-masuk:active {
+  transform: scale(0.98);
+}
+
+.footer-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer-link a {
+  color: var(--terracotta);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-link a:hover {
+  color: var(--terracotta-dark);
+  text-decoration: underline;
+}

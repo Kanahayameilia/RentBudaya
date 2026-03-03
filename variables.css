@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@300;400;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --terracotta: #C8593A;
+  --terracotta-dark: #A8432A;
+  --cream: #FAF6F1;
+  --bg: #E8D5C0;
+  --text: #2C1A0E;
+  --muted: #8a7060;
+  --border: #e0cfc2;
+  --border-light: rgba(200,89,58,0.25);
+  --tag-bg: #fff;
+  --tag-border: #d9c8bb;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  min-height: 100vh;
+  color: var(--text);
+}
