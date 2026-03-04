@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #d9c1ad;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #caa98f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.logo {
+    background-color: #b7774f;
+    color: white;
+    font-weight: bold;
+    padding: 10px 14px;
+    border-radius: 10px;
+}
+
+.btn-top {
+    background-color: #b7774f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Back */
+.back {
+    margin: 20px 40px;
+    color: #6e5b4d;
+    cursor: pointer;
+}
+
+/* Container */
+.container {
+    display: flex;
+    gap: 40px;
+    padding: 0 40px;
+}
+
+/* Card */
+.card {
+    background-color: #f4ece5;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Summary */
+.summary {
+    width: 300px;
+}
+
+.summary h2 {
+    margin-bottom: 20px;
+    color: #5c4637;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: #6e5b4d;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #5c4637;
+    font-size: 18px;
+}
+
+/* Payment */
+.payment {
+    flex: 1;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.qr-box {
+    background-color: #e7d5c8;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.qr-box img {
+    width: 200px;
+    height: 200px;
+}
+
+.payment-info h3 {
+    margin-bottom: 15px;
+    color: #5c4637;
+}
+
+.payment-info ol {
+    color: #6e5b4d;
+    line-height: 1.6;
+}
+
+/* Bottom Button */
+.bottom-btn {
+    text-align: right;
+    padding: 30px 40px;
+}
+
+.btn-primary {
+    background-color: #b7774f;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-top:hover {
+    background-color: #9c5f3a;
+}

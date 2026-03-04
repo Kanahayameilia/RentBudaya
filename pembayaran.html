@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Halaman Pembayaran</title>
+    <link rel="stylesheet" href="pembayaran.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">RB</div>
+        <button class="btn-top">Pembayaran</button>
+    </div>
+
+    <!-- Back -->
+    <div class="back">
+        &lt; Kembali
+    </div>
+
+    <div class="container">
+
+        <!-- Ringkasan Pesanan -->
+        <div class="card summary">
+            <h2>Ringkasan Pesanan</h2>
+
+            <div class="row"><span>Ukuran</span><span>S</span></div>
+            <div class="row"><span>Warna</span><span>Hitam</span></div>
+            <div class="row"><span>Model</span><span>Pria</span></div>
+            <div class="row"><span>Tanggal Mulai</span><span>12/02/2026</span></div>
+            <div class="row"><span>Tanggal Selesai</span><span>15/02/2026</span></div>
+            <div class="row"><span>Durasi</span><span>4 Hari</span></div>
+
+            <div class="total">
+                <span>Total</span>
+                <span>364.000</span>
+            </div>
+        </div>
+
+        <!-- Pembayaran -->
+        <div class="card payment">
+
+            <div class="qr-box">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=RentBudaya" alt="QR Code">
+            </div>
+
+            <div class="payment-info">
+                <h3>Cara Pembayaran :</h3>
+                <ol>
+                    <li>Buka aplikasi e-wallet atau mobile banking Anda (GoPay, OVO, Dana, ShopeePay, dll)</li>
+                    <li>Pilih menu Scan QR atau QRIS</li>
+                    <li>Arahkan kamera ke kode QRIS di atas</li>
+                    <li>Pastikan nominal pembayaran sudah sesuai</li>
+                    <li>Konfirmasi pembayaran di aplikasi Anda</li>
+                    <li>Klik tombol "Saya Sudah Bayar" setelah transaksi berhasil</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Button bawah -->
+    <div class="bottom-btn">
+        <button class="btn-primary">Sudah Bayar</button>
+    </div>
+
+</body>
+</html>
