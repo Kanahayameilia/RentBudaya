@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Cari Toko</title>
+
+  <!-- Google Font Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="caritoko.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">RB</div>
+
+    <div class="location-dropdown">
+      <button class="location-btn">Magelang ▾</button>
+      <div class="dropdown-menu">
+        <div>Magelang</div>
+        <div>Yogyakarta</div>
+        <div>Solo</div>
+        <div>Semarang</div>
+        <div>Kebumen</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="container">
+
+    <!-- FILTER -->
+    <aside class="filter-box">
+      <h3>Filter</h3>
+
+      <h4>Ukuran Tersedia</h4>
+      <div class="size-group">
+        <button>S</button>
+        <button class="active">M</button>
+        <button>L</button>
+        <button>XL</button>
+        <button>XXL</button>
+      </div>
+
+      <h4>Kategori Tersedia</h4>
+      <div class="category-group">
+        <label><input type="checkbox"> > 400.000</label>
+        <label><input type="checkbox"> 300.000 - 400.000</label>
+        <label><input type="checkbox"> 150.000 - 300.000</label>
+        <label><input type="checkbox"> < 150.000</label>
+      </div>
+
+      <div class="filter-buttons">
+        <button class="reset">Reset Filter</button>
+        <button class="apply">Terapkan</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="store-list">
+
+      <div class="title">
+        <h1>Toko Terdekat</h1>
+        <p>Menampilkan Toko Sekitar Lokasi Anda</p>
+      </div>
+
+      <div class="card-container">
+
+        <div class="store-card">
+          <h3>Toko Baju Daerah</h3>
+          <p>Jl. Ahmad Yani No. 45, Magelang</p>
+          <button>Lihat Produk ></button>
+        </div>
+
+        <div class="store-card">
+          <h3>Rental Kebaya Modern</h3>
+          <p>Jl. Thamrin No. 49, Magelang</p>
+          <button>Lihat Produk ></button>
+        </div>
+
+        <div class="store-card">
+          <h3>Batik Heritage Store</h3>
+          <p>Jl. Asia Afrika No. 78, Magelang</p>
+          <button>Lihat Produk ></button>
+        </div>
+
+        <div class="store-card">
+          <h3>Toko Adat Jaya</h3>
+          <p>Jl. Gatot Subroto No. 234, Magelang</p>
+          <button>Lihat Produk ></button>
+        </div>
+
+        <div class="store-card">
+          <h3>Sewa Baju Pengantin Adat</h3>
+          <p>Jl. Diponegoro No. 56, Magelang</p>
+          <button>Lihat Produk ></button>
+        </div>
+
+        <div class="store-card">
+          <h3>Butik Hana</h3>
+          <p>Jl. Sudirman No. 123, Magelang</p>
+          <button>Lihat Produk ></button>
+        </div>
+
+      </div>
+
+    </main>
+
+  </section>
+
+</body>
+</html>

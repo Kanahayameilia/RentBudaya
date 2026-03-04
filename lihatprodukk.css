@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #E7D2BD;
+  color: #4B2E2B; /* warna text utama */
+}
+
+/* NAVBAR */
+.navbar {
+  margin: 20px;
+  padding: 15px 40px;
+  border-radius: 20px;
+  background: #E7D2BD;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* RB */
+.logo {
+  background: #C2764F;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #FFFFFF; /* PUTIH */
+}
+
+/* Tombol Lihat Produk */
+.nav-btn {
+  background: #C2764F;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #FFFFFF; /* PUTIH */
+}
+
+/* CONTAINER */
+.container {
+  padding: 0 60px 60px 60px;
+}
+
+.back {
+  margin: 10px 0 20px 0;
+  font-size: 16px;
+}
+
+/* STORE CARD */
+.store-card {
+  background: #F3EEE9;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+  margin-bottom: 30px;
+  color: #4B2E2B; /* TEXT COKLAT */
+}
+
+.store-card h2 {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.store-card p {
+  font-size: 16px;
+  margin-top: 6px;
+}
+
+/* SECTION */
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* PRODUCT GRID */
+.product-grid {
+  display: flex;
+  gap: 40px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+  width: 240px;
+  background: #F3EEE9;
+  border-radius: 20px;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #4B2E2B; /* TEXT DALAM CARD */
+}
+
+/* IMAGE */
+.product-image {
+  height: 240px;
+  background: url("assets/image/image.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* INFO */
+.product-info {
+  padding: 15px;
+}
+
+.product-name {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.price span {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+/* BUTTON SEWA */
+.sewa {
+  background: #C2764F;
+  border: none;
+  padding: 6px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #FFFFFF;
+}
