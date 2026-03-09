@@ -113,9 +113,11 @@ gap:40px;
 /* IMAGE */
 
 .photo-wrap img{
-width:260px;
+width:320px;
+height:400px;
 border-radius:20px;
 box-shadow:0 10px 20px rgba(0,0,0,0.1);
+object-fit:cover;
 }
 
 /* CARD */
@@ -174,11 +176,22 @@ padding:8px 18px;
 border-radius:10px;
 cursor:pointer;
 font-size:14px;
+transition: all 0.2s ease;
+border: 2px solid #d4c4b5;
+display: inline-block;
+}
+
+.tag:hover{
+background:#d4c4b5;
+transform: translateY(-2px);
+border-color:#C2764F;
 }
 
 .tag.active{
 background:#C2764F;
 color:white;
+border-color:#a8452a;
+box-shadow: 0 4px 8px rgba(194, 118, 79, 0.3);
 }
 
 /* DATE */

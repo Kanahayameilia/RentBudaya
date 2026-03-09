@@ -32,7 +32,7 @@
 <main class="container">
 <div class="content-row">
 <div class="photo-wrap">
-<img src="assets/image/kebaya.png">
+<img src="Assets/image/imageproduk.jpeg" id="product-image">
 </div>
 <div class="detail-card">
 <h2>Kebaya Beskap Solo</h2>
@@ -47,9 +47,9 @@ atau prosesi adat formal.
 <div class="option-row">
 <span class="option-label">Model</span>
 
-<div class="tags">
-<div class="tag active">Pria</div>
-<div class="tag">Wanita</div>
+<div class="tags" id="model-options">
+<div class="tag active" onclick="selectModel(this, 'Pria')">Pria</div>
+<div class="tag" onclick="selectModel(this, 'Wanita')">Wanita</div>
 </div>
 </div>
 
@@ -57,10 +57,10 @@ atau prosesi adat formal.
 <div class="option-row">
 <span class="option-label">Warna</span>
 
-<div class="tags">
-<div class="tag active">Hitam</div>
-<div class="tag">Biru</div>
-<div class="tag">Hijau</div>
+<div class="tags" id="color-options">
+<div class="tag active" onclick="selectColor(this, 'Hitam')">Hitam</div>
+<div class="tag" onclick="selectColor(this, 'Biru')">Biru</div>
+<div class="tag" onclick="selectColor(this, 'Hijau')">Hijau</div>
 </div>
 </div>
 
@@ -74,7 +74,7 @@ atau prosesi adat formal.
 </div>
 
 <div class="date-field">
-<span>tanggal selesai</span>
+<span>tanggal selesai (maks 3 hari)</span>
 <input type="date">
 </div>
 </div>
@@ -85,5 +85,7 @@ atau prosesi adat formal.
 <button class="btn-lanjut">Lanjut Ke Pembayaran</button>
 </div>
 </main>
+<script src="sewa.js"></script>
+
 </body>
 </html>

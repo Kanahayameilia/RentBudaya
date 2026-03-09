@@ -26,6 +26,28 @@ function selectColor(element, color) {
     element.classList.add('active');
     selectedColor = color;
     console.log('Warna dipilih:', selectedColor);
+    
+    // Ganti gambar sesuai warna
+    const productImage = document.getElementById('product-image');
+    if (productImage) {
+        // Ganti gambar berdasarkan warna
+        let imagePath = 'Assets/image/image.png';
+        
+        switch(color) {
+            case 'Hitam':
+                imagePath = 'Assets/image/imageproduk.jpeg'; // baju hitam
+                break;
+            case 'Biru':
+                imagePath = 'Assets/image/imagebiru.jpeg'; // baju biru
+                break;
+            case 'Hijau':
+                imagePath = 'Assets/image/imagehijau.jpeg'; // baju hijau
+                break;
+        }
+        
+        productImage.src = imagePath;
+        console.log('Gambar diganti ke:', imagePath);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
