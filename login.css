@@ -1,0 +1,136 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.login-bg {
+  position: fixed;
+  inset: 0;
+  background: url("assets/image/image.png") center/cover no-repeat;
+  filter: brightness(0.6);
+  z-index: -1;
+}
+
+.card {
+  background: rgba(250, 246, 241, 0.95);
+  width: 100%;
+  max-width: 420px;
+  padding: 50px 45px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.brand {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #8c7b70;
+  margin-bottom: 10px;
+}
+
+.card h1 {
+  font-size: 34px;
+  font-weight: 600; 
+  color: #c8593a;
+  margin-bottom: 35px;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6f6258;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: 0.2s;
+}
+
+.field input:focus {
+  border-color: #c8593a;
+  box-shadow: 0 0 0 3px rgba(200, 89, 58, 0.15);
+}
+
+.field .error {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+  font-size: 14px;
+  color: #6f6258;
+}
+
+.remember input {
+  accent-color: #c8593a;
+  cursor: pointer;
+}
+
+.btn-masuk {
+  background: #c8593a;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-masuk:hover {
+  background: #a8442a;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6f6258;
+}
+
+.footer a {
+  color: #c8593a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
