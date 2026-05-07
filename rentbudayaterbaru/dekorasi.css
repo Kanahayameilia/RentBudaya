@@ -1,0 +1,94 @@
+
+
+/* 1. CARD HOVER DENGAN SENTUHAN BUDAYA */
+.store-card, .product-card, .card {
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.store-card:hover, .product-card:hover, .card:hover {
+    transform: translateY(-5px);
+    border-bottom-color: #C2764F;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* 2. TOMBOL DENGAN MOTIF TRADISIONAL */
+.btn-primary, .apply, .btn-bayar, .btn-lanjut, 
+.sewa, .confirm, .btn-masuk, button[type="submit"] {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-primary::before, .apply::before, .btn-bayar::before, 
+.btn-lanjut::before, .sewa::before, .confirm::before,
+.btn-masuk::before, button[type="submit"]::before {
+    content: "❦";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover::before, .apply:hover::before, .btn-bayar:hover::before,
+.btn-lanjut:hover::before, .sewa:hover::before, .confirm:hover::before,
+.btn-masuk:hover::before, button[type="submit"]:hover::before {
+    left: 12px;
+    opacity: 0.5;
+}
+
+.btn-primary:hover, .apply:hover, .btn-bayar:hover,
+.btn-lanjut:hover, .sewa:hover, .confirm:hover,
+.btn-masuk:hover, button[type="submit"]:hover {
+    padding-left: 32px;
+}
+
+/* 3. CAP BATIK DI POJOK KANAN BAWAH */
+.batik-stamp {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(194,118,79,0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 996;
+}
+
+.batik-stamp::before {
+    content: "✽";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    color: rgba(194, 118, 79, 0.25);
+}
+
+/* 4. GELOMBANG BATIK DI BAWAH */
+@keyframes gelombangParang {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 0; }
+}
+
+.wave-batik {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 25px,
+        rgba(194, 118, 79, 0.12) 25px,
+        rgba(194, 118, 79, 0.12) 50px
+    );
+    pointer-events: none;
+    z-index: 996;
+    animation: gelombangParang 8s linear infinite;
+}

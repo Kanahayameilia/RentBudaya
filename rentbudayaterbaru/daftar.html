@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RentBudaya - Daftar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="login.css"> 
+
+<style>
+/* Tambahan style untuk pilihan role yang rapi */
+.role-group {
+    display: flex;
+    gap: 15px;
+    margin: 10px 0 5px;
+}
+
+.role-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: white;
+    border: 2px solid #e0cfc2;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.role-option:hover {
+    border-color: #C8593A;
+    background: #FFF5EE;
+}
+
+.role-option.selected {
+    background: #C8593A;
+    border-color: #C8593A;
+}
+
+.role-option.selected label,
+.role-option.selected small {
+    color: white;
+}
+
+.role-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #C8593A;
+    cursor: pointer;
+}
+
+.role-option.selected input[type="radio"] {
+    accent-color: white;
+}
+
+.role-option label {
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0;
+    color: #4B2E2B;
+}
+
+.role-option small {
+    font-size: 11px;
+    color: #8a7060;
+    font-weight: normal;
+}
+
+.role-option.selected small {
+    color: rgba(255,255,255,0.85);
+}
+
+.field small.hint {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+    color: #8a7060;
+}
+
+/* Perbaikan card agar lebih proporsional */
+.card {
+    background: rgba(250, 246, 241, 0.95);
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 40px 45px;
+    border-radius: 24px;
+}
+
+.card h1 {
+    font-size: 30px;
+    margin-bottom: 28px;
+}
+
+.btn-masuk {
+    margin-top: 10px;
+    padding: 14px;
+    font-size: 16px;
+}
+
+.footer {
+    margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-bg"></div>
+
+<div class="card">
+  <p class="brand">RentBudaya</p>
+  <h1>Daftar Akun</h1>
+
+  <form id="daftarForm">
+
+    <div class="field">
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Masukkan nama lengkap..." required>
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="contoh: nama@email.com" required>
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Minimal 6 karakter" required>
+      <small class="hint">⚠️ Gunakan minimal 6 karakter untuk keamanan</small>
+    </div>
+
+    <!-- PILIHAN ROLE -->
+    <div class="field">
+      <label>Daftar Sebagai</label>
+      <div class="role-group">
+        <div class="role-option customer selected" onclick="selectRole('customer')">
+          <input type="radio" name="role" value="customer" checked> 
+          <label>👤 Customer</label>
+          <small>Penyewa</small>
+        </div>
+        <div class="role-option seller" onclick="selectRole('seller')">
+          <input type="radio" name="role" value="seller"> 
+          <label>🏪 Penjual</label>
+          <small>Pemilik Toko</small>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-masuk">Daftar Sekarang</button>
+
+  </form>
+
+  <p class="footer">
+    Sudah punya akun? <a href="login.html">Masuk</a>
+  </p>
+</div>
+
+<script>
+// Function untuk toggle style role selection
+function selectRole(role) {
+    const customerDiv = document.querySelector('.role-option.customer');
+    const sellerDiv = document.querySelector('.role-option.seller');
+    const customerRadio = document.querySelector('input[value="customer"]');
+    const sellerRadio = document.querySelector('input[value="seller"]');
+    
+    if (role === 'customer') {
+        customerDiv.classList.add('selected');
+        sellerDiv.classList.remove('selected');
+        customerRadio.checked = true;
+    } else {
+        sellerDiv.classList.add('selected');
+        customerDiv.classList.remove('selected');
+        sellerRadio.checked = true;
+    }
+}
+</script>
+
+<script src="daftar.js"></script>
+</body>
+</html>
