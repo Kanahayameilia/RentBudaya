@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Penjual - RentBudaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #E7D2BD; }
+        .navbar {
+            background: #E7D2BD;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo {
+            background: #C2764F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .nav-right { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
+        .nav-right a {
+            text-decoration: none;
+            color: #4B2E2B;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .nav-right a:hover { background: #d4c4b5; }
+        .logout-btn {
+            background: #d64545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .logout-btn:hover { background: #b33a3a; }
+        .container { max-width: 1400px; margin: auto; padding: 40px; }
+        .dashboard-title { margin-bottom: 30px; }
+        .dashboard-title h1 { font-size: 32px; color: #4B2E2B; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: #F8F1EB;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-card h3 { font-size: 14px; color: #7a5c55; margin-bottom: 10px; }
+        .stat-card .number { font-size: 36px; font-weight: 700; color: #C2764F; }
+        .section-card {
+            background: #F8F1EB;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .section-card h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #4B2E2B;
+        }
+        .btn-primary {
+            background: #C2764F;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .btn-primary:hover { background: #a85f3b; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+            display: block;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th { background: #EFE7E1; }
+        .status-menunggu { background: #ff9800; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; display: inline-block; }
+        .status-dikonfirmasi { background: #4CAF50; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; display: inline-block; }
+        .btn-validasi {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn-validasi:hover { background: #0b7dda; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #EFE7E1;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .tab.active { background: #C2764F; color: white; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #F8F1EB;
+            padding: 30px;
+            border-radius: 20px;
+            width: 500px;
+            max-width: 90%;
+        }
+        .modal-content input, .modal-content select, .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+        .btn-simpan { background: #C2764F; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+        .btn-batal { background: #999; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .navbar { padding: 15px 20px; }
+            th, td { padding: 8px; font-size: 12px; }
+        }
+        .notification-badge {
+            background: #d64545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">🏪 RentBudaya - Panel Penjual</div>
+        <div class="nav-right">
+            <a id="manageStoreBtn">🏪 Kelola Toko</a>
+            <a id="addProductBtn">➕ Tambah Produk</a>
+            <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-title">
+            <h1>Dashboard Penjual</h1>
+            <p>Selamat datang, <span id="sellerName">Loading...</span></p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card"><h3>📦 Total Pesanan</h3><div class="number" id="totalOrders">0</div></div>
+            <div class="stat-card"><h3>⏳ Menunggu Validasi</h3><div class="number" id="pendingOrders">0</div></div>
+            <div class="stat-card"><h3>👕 Total Produk</h3><div class="number" id="totalProducts">0</div></div>
+        </div>
+
+        <div class="section-card">
+            <h2>📋 Kelola Pesanan <span id="pendingBadge" class="notification-badge" style="display:none;">!</span></h2>
+            <div class="tabs">
+                <div class="tab active" data-tab="pending">⏳ Menunggu Validasi</div>
+                <div class="tab" data-tab="all">📜 Semua Pesanan</div>
+            </div>
+            <div style="overflow-x: auto;">
+                <table id="orders-list">
+                    <thead><tr><th>No. Pesanan</th><th>Customer</th><th>Produk</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+                    <tbody><tr><td colspan="6" style="text-align:center;">Loading...</td></tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Validasi -->
+    <div id="validationModal" class="modal">
+        <div class="modal-content">
+            <h3>✅ Validasi Pembayaran</h3>
+            <p>Nomor Pesanan: <strong id="modalOrderNumber"></strong></p>
+            <p>Total: <strong id="modalTotal"></strong></p>
+            <p style="margin-top: 15px; padding: 10px; background: #EFE7E1; border-radius: 8px;">
+                ⚠️ Pastikan pembayaran sudah diterima sebelum memvalidasi.
+            </p>
+            <div class="modal-buttons">
+                <button class="btn-batal" onclick="closeModal('validationModal')">Batal</button>
+                <button class="btn-simpan" id="confirmValidationBtn">✅ Konfirmasi Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Toko -->
+    <div id="storeModal" class="modal">
+        <div class="modal-content">
+            <h3>🏪 Kelola Toko</h3>
+            <input type="text" id="storeName" placeholder="Nama Toko">
+            <textarea id="storeAddress" placeholder="Alamat Lengkap" rows="3"></textarea>
+            <select id="storeCity">
+                <option value="Magelang">Magelang</option>
+                <option value="Yogyakarta">Yogyakarta</option>
+                <option value="Solo">Solo</option>
+                <option value="Semarang">Semarang</option>
+                <option value="Kebumen">Kebumen</option>
+                <option value="Kendal">Kendal</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="btn-batal" onclick="closeModal('storeModal')">Batal</button>
+                <button class="btn-simpan" id="saveStoreBtn">Simpan Toko</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Produk -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <h3>➕ Tambah Produk Baru</h3>
+            <input type="text" id="productName" placeholder="Nama Produk" required>
+            <textarea id="productDesc" placeholder="Deskripsi Produk" rows="3"></textarea>
+            <input type="number" id="productPrice" placeholder="Harga per Hari (Rp)" required>
+            <select id="productSize">
+                <option value="S">S</option><option value="M">M</option><option value="L">L</option>
+                <option value="XL">XL</option><option value="XXL">XXL</option>
+            </select>
+            <input type="file" id="productImage" accept="image/*">
+            <small style="color: #888;">Format: JPG, PNG (max 2MB)</small>
+            <div class="modal-buttons">
+                <button class="btn-batal" onclick="closeModal('productModal')">Batal</button>
+                <button class="btn-simpan" id="saveProductBtn">Simpan Produk</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard_penjual.js"></script>
+</body>
+</html>

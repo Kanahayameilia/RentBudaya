@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Daftar</title>
+</head>
+<body>
+    <h2>Test Daftar Penjual</h2>
+    <form id="testForm">
+        <input type="text" id="nama" placeholder="Nama" value="Test Seller"><br>
+        <input type="email" id="email" placeholder="Email" value="test_seller_123@gmail.com"><br>
+        <input type="password" id="password" placeholder="Password" value="123456"><br>
+        
+        <label>
+            <input type="radio" name="role" value="customer" checked> Customer
+        </label>
+        <label>
+            <input type="radio" name="role" value="seller"> Seller (Penjual)
+        </label>
+        <br>
+        <button type="submit">Daftar</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("testForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            
+            let role = "customer";
+            const radios = document.querySelectorAll('input[name="role"]');
+            for (let radio of radios) {
+                if (radio.checked) {
+                    role = radio.value;
+                    break;
+                }
+            }
+            
+            const data = {
+                nama: document.getElementById("nama").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                role: role
+            };
+            
+            document.getElementById("result").innerHTML = "Mengirim: " + JSON.stringify(data);
+            
+            const res = await fetch("api/daftar.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+            
+            const json = await res.json();
+            document.getElementById("result").innerHTML += "<br>Response: " + JSON.stringify(json);
+            
+            if (json.success) {
+                alert("Role tersimpan: " + json.role);
+            }
+        });
+    </script>
+</body>
+</html>
