@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Terkirim - RentBudaya</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FDF8F2;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .batik-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.04"><path fill="none" stroke="%23C8593A" stroke-width="0.8" d="M20,20 L30,15 L40,20 L50,15 L60,20 L70,15 L80,20 M20,30 L30,25 L40,30 L50,25 L60,30 L70,25 L80,30 M20,40 L30,35 L40,40 L50,35 L60,40 L70,35 L80,40 M20,50 L30,45 L40,50 L50,45 L60,50 L70,45 L80,50 M20,60 L30,55 L40,60 L50,55 L60,60 L70,55 L80,60 M20,70 L30,65 L40,70 L50,65 L60,70 L70,65 L80,70 M20,80 L30,75 L40,80 L50,75 L60,80 L70,75 L80,80"/></svg>');
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .success-card {
+            max-width: 550px;
+            width: 90%;
+            background: #FFFFFF;
+            border-radius: 32px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .success-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #C8593A 0%, #8B3A2A 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2C1A0E;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #8B7B6F;
+            margin-bottom: 30px;
+        }
+
+        .timeline {
+            background: #FDF8F2;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            background: #E8E0D8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #A89888;
+        }
+
+        .timeline-icon.completed {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .timeline-icon.active {
+            background: #C8593A;
+            color: white;
+        }
+
+        .timeline-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C1A0E;
+            margin-bottom: 4px;
+        }
+
+        .timeline-content p {
+            font-size: 13px;
+            color: #A89888;
+        }
+
+        .btn-home {
+            display: inline-block;
+            background: #C8593A;
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-home:hover {
+            background: #A8432A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(200, 89, 58, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .success-card {
+                padding: 35px 25px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .timeline-item {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="batik-bg"></div>
+
+<div class="success-card">
+    <div class="success-icon">
+        <i class="fas fa-check"></i>
+    </div>
+    
+    <div class="logo">RentBudaya</div>
+    <h2>Pendaftaran Terkirim!</h2>
+    <p class="subtitle">Akunmu sedang ditinjau oleh tim RentBudaya.<br>Kamu akan mendapat notifikasi email setelah diverifikasi.</p>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-icon completed">
+                <i class="fas fa-check"></i>
+            </div>
+            <div class="timeline-content">
+                <h4>Pendaftaran diterima</h4>
+                <p>Data kamu sudah masuk ke sistem</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon active">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="timeline-content">
+                <h4>Tinjauan dokumen</h4>
+                <p>Tim kami memverifikasi KTP & foto toko</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="timeline-content">
+                <h4>Akun aktif</h4>
+                <p>Toko kamu siap menerima pesanan</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn-home">
+        <i class="fas fa-home"></i> Beranda
+    </a>
+</div>
+
+</body>
+</html>
