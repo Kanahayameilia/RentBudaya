@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Pesanan - RentBudaya</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -274,155 +276,326 @@
             transform: translateY(-2px);
         }
 
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #8B7B6F;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #C8593A;
+        }
+
+        .product-card-container {
+            display: none;
+            gap: 15px;
+            align-items: center;
+            background: #FDF8F2;
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #F0E8E0;
+        }
+
+        .product-card-img {
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            background-color: #E8E0D8;
+            flex-shrink: 0;
+        }
+
+        .product-card-info {
+            flex: 1;
+        }
+
+        .product-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2C1A0E;
+            margin-bottom: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .product-card-title:hover {
+            color: #C8593A;
+            text-decoration: underline;
+        }
+
+        .product-card-store {
+            font-size: 12px;
+            color: #A89888;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 15px 20px;
             }
+
             .container {
                 padding: 0 20px;
             }
+
             .order-card {
                 padding: 25px;
             }
         }
     </style>
 </head>
+
 <body>
 
-<div class="batik-bg"></div>
+    <div class="batik-bg"></div>
 
-<nav class="navbar">
-    <div class="logo">RentBudaya</div>
-</nav>
+    <nav class="navbar">
+        <div class="logo">RentBudaya</div>
+        <button class="back-btn" onclick="window.location.href='pesanan_saya.html'">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </button>
+    </nav>
 
-<div class="container">
-    <div class="order-card">
-        <div class="status-header">
-            <div class="status-icon">
-                <i class="fas fa-check"></i>
+    <div class="container">
+        <div class="order-card">
+            <div class="status-header">
+                <div class="status-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2>Pembayaran Dikonfirmasi</h2>
+                <p>Pembayaran Anda telah diterima dan diverifikasi</p>
+                <div class="order-number" id="orderNumber">RB12345678</div>
             </div>
-            <h2>Pembayaran Dikonfirmasi</h2>
-            <p>Pembayaran Anda telah diterima dan diverifikasi</p>
-            <div class="order-number" id="orderNumber">RB12345678</div>
+
+            <div class="timeline" id="timeline">
+                <div class="timeline-item completed">
+                    <div class="timeline-icon"><i class="fas fa-check"></i></div>
+                    <div class="timeline-content">
+                        <h4>Pembayaran Dikonfirmasi</h4>
+                        <p>Pembayaran Anda telah diterima dan diverifikasi</p>
+                        <div class="date" id="paymentDate">11 Feb 2025, 00:26</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-box"></i></div>
+                    <div class="timeline-content">
+                        <h4>Pesanan Diproses</h4>
+                        <p>Pakaian sedang disiapkan oleh toko</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-truck"></i></div>
+                    <div class="timeline-content">
+                        <h4>Siap Diambil</h4>
+                        <p>Pakaian siap diambil di toko</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-undo-alt"></i></div>
+                    <div class="timeline-content">
+                        <h4>Dikembalikan</h4>
+                        <p>Pakaian telah dikembalikan ke toko</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="timeline" id="timeline">
-            <div class="timeline-item completed">
-                <div class="timeline-icon"><i class="fas fa-check"></i></div>
-                <div class="timeline-content">
-                    <h4>Pembayaran Dikonfirmasi</h4>
-                    <p>Pembayaran Anda telah diterima dan diverifikasi</p>
-                    <div class="date" id="paymentDate">11 Feb 2025, 00:26</div>
-                </div>
+        <div class="order-card">
+            <h3 style="margin-bottom: 20px; font-size: 18px;">Detail Pesanan</h3>
+            <div id="productCard" class="product-card-container"></div>
+            <div class="detail-table" id="detailTable"></div>
+
+            <div class="info-box">
+                <h4>Informasi Penting:</h4>
+                <ul>
+                    <li><i class="fas fa-calendar-day"></i> Pakaian dapat diambil 1 hari sebelum tanggal sewa dimulai
+                    </li>
+                    <li><i class="fas fa-tshirt"></i> Mohon kembalikan pakaian dalam kondisi bersih dan rapi</li>
+                    <li><i class="fas fa-clock"></i> Keterlambatan pengembalian akan dikenakan biaya tambahan</li>
+                    <li><i class="fas fa-hashtag"></i> Simpan nomor pesanan ini untuk keperluan pengambilan</li>
+                </ul>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-icon"><i class="fas fa-box"></i></div>
-                <div class="timeline-content">
-                    <h4>Pesanan Diproses</h4>
-                    <p>Pakaian sedang disiapkan oleh toko</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-icon"><i class="fas fa-truck"></i></div>
-                <div class="timeline-content">
-                    <h4>Siap Diambil</h4>
-                    <p>Pakaian siap diambil di toko</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-icon"><i class="fas fa-undo-alt"></i></div>
-                <div class="timeline-content">
-                    <h4>Dikembalikan</h4>
-                    <p>Pakaian telah dikembalikan ke toko</p>
-                </div>
-            </div>
+
+            <button class="btn-home" onclick="goToHome()">Kembali ke Beranda</button>
         </div>
     </div>
 
-    <div class="order-card">
-        <h3 style="margin-bottom: 20px; font-size: 18px;">Detail Pesanan</h3>
-        <div class="detail-table" id="detailTable"></div>
+    <script>
+        let orderData = null;
 
-        <div class="info-box">
-            <h4>Informasi Penting:</h4>
-            <ul>
-                <li><i class="fas fa-calendar-day"></i> Pakaian dapat diambil 1 hari sebelum tanggal sewa dimulai</li>
-                <li><i class="fas fa-tshirt"></i> Mohon kembalikan pakaian dalam kondisi bersih dan rapi</li>
-                <li><i class="fas fa-clock"></i> Keterlambatan pengembalian akan dikenakan biaya tambahan</li>
-                <li><i class="fas fa-hashtag"></i> Simpan nomor pesanan ini untuk keperluan pengambilan</li>
-            </ul>
-        </div>
-
-        <button class="btn-home" onclick="goToHome()">Kembali ke Beranda</button>
-    </div>
-</div>
-
-<script>
-    let orderData = null;
-
-    // Cek login
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-    if (!currentUser) {
-        window.location.href = 'login.html';
-    }
-
-    function loadOrderData() {
-        const storedOrder = localStorage.getItem('currentOrder');
-        const orderNumber = localStorage.getItem('orderNumber');
-        
-        if (storedOrder) {
-            orderData = JSON.parse(storedOrder);
-        } else if (orderNumber) {
-            orderData = { nomor_pesanan: orderNumber };
-        } else {
-            // Jangan pakai dummy data (biar tidak kembali default).
-            // Kalau currentOrder memang kosong, tampilkan nilai '-' agar jelas.
-            orderData = {
-                nomor_pesanan: orderNumber,
-                size: null,
-                color: null,
-                model: null,
-                startDate: null,
-                endDate: null,
-                duration: null,
-                total: null,
-                paymentDate: new Date().toISOString()
-            };
+        // Cek login
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        if (!currentUser) {
+            window.location.href = 'login.html';
         }
 
-        
-        renderOrderDetail();
-    }
+        async function loadOrderData() {
+            const storedOrder = localStorage.getItem('currentOrder');
+            const orderNumber = localStorage.getItem('orderNumber');
 
-    function formatDate(dateStr) {
-        if (!dateStr) return '-';
-        const d = new Date(dateStr);
-        return String(d.getDate()).padStart(2, '0') + '/' + 
-               String(d.getMonth() + 1).padStart(2, '0') + '/' + 
-               d.getFullYear();
-    }
+            let localData = null;
+            if (storedOrder) {
+                localData = JSON.parse(storedOrder);
+            }
 
-    function formatDateTime(dateStr) {
-        if (!dateStr) return '-';
-        const d = new Date(dateStr);
-        const days = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-        return `${d.getDate()} ${days[d.getMonth()]} ${d.getFullYear()}, ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-    }
+            const activeOrderNum = orderNumber || (localData ? localData.nomor_pesanan : '');
 
-    function renderOrderDetail() {
-        // Set order number
-        document.getElementById('orderNumber').textContent = orderData.nomor_pesanan || 'RB' + Date.now().toString().slice(-8);
-        
-        // Set payment date
-        const paymentDate = orderData.paymentDate || new Date().toISOString();
-        document.getElementById('paymentDate').textContent = formatDateTime(paymentDate);
-        
-        // Set detail table
-        const startDate = formatDate(orderData.startDate);
-        const endDate = formatDate(orderData.endDate);
-        
-        const detailTable = document.getElementById('detailTable');
-        detailTable.innerHTML = `
+            if (!activeOrderNum) {
+                // Fallback to local data or redirect
+                if (localData) {
+                    orderData = localData;
+                    renderOrderDetail();
+                    updateTimeline(orderData.status);
+                } else {
+                    window.location.href = 'dashboard_customer.html';
+                }
+                return;
+            }
+
+            // Tampilkan loading di table detail
+            document.getElementById('detailTable').innerHTML = '<div style="text-align:center; padding:20px; color:#A89888;"><i class="fas fa-spinner fa-pulse"></i> Memuat detail pesanan...</div>';
+
+            try {
+                const res = await fetch(`api/pesanan.php?nomor=${activeOrderNum}`);
+                const json = await res.json();
+
+                if (json.success && json.data) {
+                    const order = json.data;
+                    orderData = {
+                        nomor_pesanan: order.nomor_pesanan,
+                        produk_id: order.produk_id,
+                        nama_produk: order.nama_produk,
+                        gambar: order.gambar,
+                        nama_toko: order.nama_toko,
+                        size: order.ukuran,
+                        color: order.warna,
+                        model: order.model,
+                        startDate: order.tanggal_mulai,
+                        endDate: order.tanggal_selesai,
+                        duration: order.durasi_hari,
+                        total: parseFloat(order.total_harga),
+                        paymentDate: order.created_at,
+                        status: order.status
+                    };
+                    renderOrderDetail();
+                    updateTimeline(order.status);
+                } else {
+                    useFallback(localData, activeOrderNum);
+                }
+            } catch (e) {
+                console.error(e);
+                useFallback(localData, activeOrderNum);
+            }
+        }
+
+        function useFallback(localData, activeOrderNum) {
+            if (localData) {
+                orderData = {
+                    nomor_pesanan: localData.nomor_pesanan,
+                    produk_id: localData.produk_id || localData.product?.id,
+                    nama_produk: localData.product_name || localData.product?.nama || 'Produk',
+                    gambar: localData.product_gambar || localData.product?.gambar || localData.gambar,
+                    nama_toko: localData.store_name || localData.product?.store_name || 'Toko',
+                    size: localData.size,
+                    color: localData.color,
+                    model: localData.model,
+                    startDate: localData.startDate,
+                    endDate: localData.endDate,
+                    duration: localData.duration,
+                    total: localData.total,
+                    paymentDate: localData.paymentDate || new Date().toISOString(),
+                    status: localData.status
+                };
+            } else {
+                orderData = {
+                    nomor_pesanan: activeOrderNum,
+                    size: '-',
+                    color: '-',
+                    model: '-',
+                    startDate: null,
+                    endDate: null,
+                    duration: 0,
+                    total: 0,
+                    paymentDate: new Date().toISOString(),
+                    status: 'menunggu_pembayaran'
+                };
+            }
+            renderOrderDetail();
+            updateTimeline(orderData.status);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const d = new Date(dateStr);
+            return String(d.getDate()).padStart(2, '0') + '/' +
+                String(d.getMonth() + 1).padStart(2, '0') + '/' +
+                d.getFullYear();
+        }
+
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '-';
+            const d = new Date(dateStr);
+            const days = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+            return `${d.getDate()} ${days[d.getMonth()]} ${d.getFullYear()}, ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+        }
+
+        function goToProductDetail() {
+            if (!orderData || !orderData.produk_id) return;
+            const product = {
+                id: orderData.produk_id,
+                nama: orderData.nama_produk,
+                gambar: orderData.gambar,
+                store_name: orderData.nama_toko,
+                ukuran: ['S', 'M', 'L', 'XL', 'XXL'],
+                model: ['Pria', 'Wanita'],
+                warna: ['Hitam', 'Biru', 'Hijau']
+            };
+            localStorage.setItem('selectedProduct', JSON.stringify(product));
+            window.location.href = 'detail_produk.html';
+        }
+        window.goToProductDetail = goToProductDetail;
+
+        function renderOrderDetail() {
+            // Set order number
+            document.getElementById('orderNumber').textContent = orderData.nomor_pesanan || 'RB' + Date.now().toString().slice(-8);
+
+            // Set payment date
+            const paymentDate = orderData.paymentDate || new Date().toISOString();
+            document.getElementById('paymentDate').textContent = formatDateTime(paymentDate);
+
+            // Set product card
+            const productCard = document.getElementById('productCard');
+            if (productCard && orderData.nama_produk) {
+                const imgUrl = orderData.gambar ? `Assets/image/${orderData.gambar}` : 'https://placehold.co/70x70/E8E0D8/C8593A?text=Produk';
+                productCard.innerHTML = `
+                    <div class="product-card-img" style="background-image: url('${imgUrl}'); cursor: pointer;" onclick="goToProductDetail()"></div>
+                    <div class="product-card-info">
+                        <div class="product-card-title" onclick="goToProductDetail()">${orderData.nama_produk}</div>
+                        <div class="product-card-store"><i class="fas fa-store"></i> ${orderData.nama_toko || 'Toko'}</div>
+                    </div>
+                `;
+                productCard.style.display = 'flex';
+            } else if (productCard) {
+                productCard.style.display = 'none';
+            }
+
+            // Set detail table
+            const startDate = formatDate(orderData.startDate);
+            const endDate = formatDate(orderData.endDate);
+
+            const detailTable = document.getElementById('detailTable');
+            detailTable.innerHTML = `
             <div class="detail-row">
                 <span class="detail-label">Ukuran</span>
                 <span class="detail-value">${orderData.size || 'S'}</span>
@@ -452,15 +625,113 @@
                 <span class="total-value">Rp ${(orderData.total || 0).toLocaleString('id-ID')}</span>
             </div>
         `;
-    }
+        }
 
-    function goToHome() {
-        window.location.href = 'dashboard_customer.html';
-    }
+        function updateTimeline(status) {
+            const timeline = document.getElementById('timeline');
+            if (!timeline) return;
 
-    // Initialize
-    loadOrderData();
-</script>
+            let steps = [
+                { id: 'confirmed', title: 'Pembayaran Dikonfirmasi', desc: 'Pembayaran Anda telah diterima dan diverifikasi' },
+                { id: 'processing', title: 'Pesanan Diproses', desc: 'Pakaian sedang disiapkan oleh toko' },
+                { id: 'ready', title: 'Siap Diambil', desc: 'Pakaian siap diambil di toko' },
+                { id: 'returned', title: 'Dikembalikan', desc: 'Pakaian telah dikembalikan ke toko' }
+            ];
+
+            // Tentukan jumlah langkah yang selesai/aktif
+            let completedCount = 0;
+            let isWaitingValidation = false;
+
+            if (status === 'menunggu_pembayaran') {
+                steps[0].title = 'Menunggu Validasi';
+                steps[0].desc = 'Pembayaran Anda sedang dalam proses validasi oleh toko';
+                completedCount = 0;
+                isWaitingValidation = true;
+            } else if (status === 'pembayaran_dikonfirmasi' || status === 'confirmed') {
+                completedCount = 1;
+            } else if (status === 'diproses' || status === 'processing') {
+                completedCount = 2;
+            } else if (status === 'siap_diambil' || status === 'ready') {
+                completedCount = 3;
+            } else if (status === 'dikembalikan' || status === 'selesai' || status === 'returned') {
+                completedCount = 4;
+            }
+
+            const paymentDate = orderData.paymentDate || new Date().toISOString();
+
+            // Update status header text dynamically
+            const statusHeaderH2 = document.querySelector('.status-header h2');
+            const statusHeaderP = document.querySelector('.status-header p');
+            const statusIcon = document.querySelector('.status-icon');
+            const statusIconI = statusIcon ? statusIcon.querySelector('i') : null;
+
+            if (statusHeaderH2 && statusHeaderP) {
+                if (isWaitingValidation) {
+                    statusHeaderH2.textContent = 'Menunggu Validasi';
+                    statusHeaderP.textContent = 'Pembayaran Anda sedang diverifikasi oleh penjual';
+                    if (statusIcon) {
+                        statusIcon.style.background = '#FF9800';
+                    }
+                    if (statusIconI) {
+                        statusIconI.className = 'fas fa-clock';
+                    }
+                } else {
+                    statusHeaderH2.textContent = completedCount >= 4 ? 'Pesanan Selesai' : (completedCount === 3 ? 'Siap Diambil' : (completedCount === 2 ? 'Pesanan Diproses' : 'Pembayaran Dikonfirmasi'));
+                    statusHeaderP.textContent = completedCount >= 4 ? 'Pakaian telah dikembalikan dan transaksi selesai' : (completedCount === 3 ? 'Silakan ambil pakaian sewaan Anda di toko' : (completedCount === 2 ? 'Pakaian Anda sedang disiapkan oleh toko' : 'Pembayaran Anda telah diterima dan diverifikasi'));
+                    if (statusIcon) {
+                        statusIcon.style.background = '#4CAF50';
+                    }
+                    if (statusIconI) {
+                        statusIconI.className = 'fas fa-check';
+                    }
+                }
+            }
+
+            timeline.innerHTML = steps.map((step, idx) => {
+                let className = '';
+                let icon = '<i class="fas fa-circle"></i>';
+
+                if (idx < completedCount) {
+                    className = 'completed';
+                    icon = '<i class="fas fa-check"></i>';
+                } else if (idx === completedCount) {
+                    className = 'active';
+                    if (isWaitingValidation) {
+                        icon = '<i class="fas fa-clock"></i>';
+                    } else if (idx === 1) {
+                        icon = '<i class="fas fa-box"></i>';
+                    } else if (idx === 2) {
+                        icon = '<i class="fas fa-truck"></i>';
+                    } else {
+                        icon = '<i class="fas fa-undo-alt"></i>';
+                    }
+                } else {
+                    if (idx === 1) icon = '<i class="fas fa-box"></i>';
+                    else if (idx === 2) icon = '<i class="fas fa-truck"></i>';
+                    else icon = '<i class="fas fa-undo-alt"></i>';
+                }
+
+                return `
+                <div class="timeline-item ${className}">
+                    <div class="timeline-icon">${icon}</div>
+                    <div class="timeline-content">
+                        <h4>${step.title}</h4>
+                        <p>${step.desc}</p>
+                        ${idx === 0 && completedCount > 0 ? `<div class="date">${formatDateTime(paymentDate)}</div>` : ''}
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function goToHome() {
+            window.location.href = 'dashboard_customer.html';
+        }
+
+        // Initialize
+        loadOrderData();
+    </script>
 
 </body>
+
 </html>

@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } elseif ($userId) {
         // --- Semua pesanan milik user ---
         $stmt = $conn->prepare(
-            'SELECT p.id, p.nomor_pesanan, p.model, p.warna, p.ukuran,
+            'SELECT p.id, p.nomor_pesanan, p.produk_id, p.model, p.warna, p.ukuran,
                     p.tanggal_mulai, p.tanggal_selesai, p.durasi_hari,
                     p.total_harga, p.status, p.created_at,
                     pr.nama AS nama_produk, pr.gambar,

@@ -393,7 +393,13 @@
     }
 
     function rentProduct(product) {
-        localStorage.setItem('selectedProduct', JSON.stringify(product));
+        const enrichedProduct = {
+            ...product,
+            ukuran: ['S', 'M', 'L', 'XL', 'XXL'],
+            model: ['Pria', 'Wanita'],
+            warna: ['Hitam', 'Biru', 'Hijau']
+        };
+        localStorage.setItem('selectedProduct', JSON.stringify(enrichedProduct));
         window.location.href = 'detail_produk.html';
     }
 

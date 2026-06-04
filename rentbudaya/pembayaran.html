@@ -290,7 +290,7 @@
 
 <nav class="navbar">
     <div class="logo">RentBudaya</div>
-    <button class="back-btn" onclick="window.location.href='sewa.html'">
+    <button class="back-btn" onclick="window.location.href='detail_produk.html'">
         <i class="fas fa-arrow-left"></i> Kembali
     </button>
 </nav>
@@ -423,39 +423,66 @@
         payBtn.textContent = 'Memproses...';
         
         try {
-            const nomorPesanan = 'RB' + Date.now().toString().slice(-8);
+            const res = await fetch('api/pesanan.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: currentUser.id,
+                    produk_id: orderData.product.id,
+                    model: orderData.model,
+                    warna: orderData.color,
+                    ukuran: orderData.size,
+                    tanggal_mulai: orderData.startDate,
+                    tanggal_selesai: orderData.endDate,
+                    durasi_hari: orderData.duration,
+                    total_harga: orderData.total,
+                    metode_bayar: 'QRIS'
+                })
+            });
             
-            const pesananData = {
-                nomor_pesanan: nomorPesanan,
-                tanggal_pesan: new Date().toISOString(),
-                paymentDate: new Date().toISOString(),
-                status: 'confirmed',
-                product: orderData.product,
-                product_name: orderData.product?.nama,
-                store_name: orderData.product?.store_name,
-                size: orderData.size,
-                color: orderData.color,
-                model: orderData.model,
-                startDate: orderData.startDate,
-                endDate: orderData.endDate,
-                duration: orderData.duration,
-                total: orderData.total
-            };
+            const json = await res.json();
             
-            localStorage.setItem('currentOrder', JSON.stringify(pesananData));
-            localStorage.setItem('orderNumber', nomorPesanan);
-            
-            let existingOrders = JSON.parse(localStorage.getItem('userOrders') || '[]');
-            existingOrders.unshift(pesananData);
-            localStorage.setItem('userOrders', JSON.stringify(existingOrders));
-            
-            localStorage.removeItem('rentalData');
-            
-            showToast('✅ Pembayaran berhasil dikonfirmasi!', 'success');
-            
-            setTimeout(() => {
-                window.location.href = 'detail_pesanan.html';
-            }, 1500);
+            if (json.success) {
+                const nomorPesanan = json.nomor_pesanan;
+                
+                const pesananData = {
+                    nomor_pesanan: nomorPesanan,
+                    tanggal_pesan: new Date().toISOString(),
+                    paymentDate: new Date().toISOString(),
+                    status: 'menunggu_pembayaran',
+                    product: orderData.product,
+                    product_name: orderData.product?.nama,
+                    store_name: orderData.product?.store_name,
+                    size: orderData.size,
+                    color: orderData.color,
+                    model: orderData.model,
+                    startDate: orderData.startDate,
+                    endDate: orderData.endDate,
+                    duration: orderData.duration,
+                    total: orderData.total
+                };
+                
+                localStorage.setItem('currentOrder', JSON.stringify(pesananData));
+                localStorage.setItem('orderNumber', nomorPesanan);
+                
+                let existingOrders = JSON.parse(localStorage.getItem('userOrders') || '[]');
+                existingOrders.unshift(pesananData);
+                localStorage.setItem('userOrders', JSON.stringify(existingOrders));
+                
+                localStorage.removeItem('rentalData');
+                
+                showToast('✅ Pembayaran dikirim untuk verifikasi!', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'detail_pesanan.html';
+                }, 1500);
+            } else {
+                errorMsg.textContent = json.message || 'Gagal menyimpan pesanan.';
+                errorMsg.style.display = 'block';
+                payBtn.disabled = false;
+                payBtn.textContent = 'Saya Sudah Bayar';
+                isProcessing = false;
+            }
             
         } catch (error) {
             console.error('Payment error:', error);

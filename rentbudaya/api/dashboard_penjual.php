@@ -2,117 +2,85 @@
 
 require_once 'config.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+// Allow GET method only
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Method tidak diizinkan']);
     exit;
 }
 
-// Ambil data dari FormData (bukan JSON karena upload file)
-$ownerName = trim($_POST['owner_name'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$phone = trim($_POST['phone'] ?? '');
-$password = trim($_POST['password'] ?? '');
-$storeName = trim($_POST['store_name'] ?? '');
-$city = trim($_POST['city'] ?? '');
-$address = trim($_POST['address'] ?? '');
-$categories = json_decode($_POST['categories'] ?? '[]', true);
-$otherCategory = trim($_POST['other_category'] ?? '');
-$storeDescription = trim($_POST['store_description'] ?? '');
+$seller_id = (int)($_GET['seller_id'] ?? 0);
 
-// Validasi
-if (!$ownerName || !$email || !$phone || !$password || !$storeName || !$city || !$address) {
+if (!$seller_id) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Semua field wajib diisi']);
+    echo json_encode(['success' => false, 'message' => 'seller_id diperlukan']);
     exit;
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Email tidak valid']);
-    exit;
-}
-
-if (strlen($password) < 6) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Password minimal 6 karakter']);
-    exit;
-}
-
-// Cek email sudah terdaftar
-$stmt = $conn->prepare('SELECT id FROM users WHERE email = ?');
-$stmt->bind_param('s', $email);
+// 1. Get toko_id belonging to the seller
+$stmt = $conn->prepare('SELECT id FROM toko WHERE seller_id = ?');
+$stmt->bind_param('i', $seller_id);
 $stmt->execute();
-$stmt->store_result();
-
-if ($stmt->num_rows > 0) {
-    http_response_code(409);
-    echo json_encode(['success' => false, 'message' => 'Email sudah terdaftar']);
-    $stmt->close();
-    exit;
-}
+$tokoResult = $stmt->get_result();
+$toko = $tokoResult->fetch_assoc();
+$toko_id = $toko['id'] ?? 0;
 $stmt->close();
 
-// Upload directory
-$uploadDir = __DIR__ . '/../uploads/penjual/';
-if (!file_exists($uploadDir)) {
-    mkdir($uploadDir, 0777, true);
-}
-
-// Upload KTP
-$ktpPath = '';
-if (isset($_FILES['ktp_file']) && $_FILES['ktp_file']['error'] === 0) {
-    $ext = pathinfo($_FILES['ktp_file']['name'], PATHINFO_EXTENSION);
-    $ktpPath = 'ktp_' . time() . '_' . uniqid() . '.' . $ext;
-    move_uploaded_file($_FILES['ktp_file']['tmp_name'], $uploadDir . $ktpPath);
-}
-
-// Upload Foto Toko
-$storePhotoPath = '';
-if (isset($_FILES['store_photo']) && $_FILES['store_photo']['error'] === 0) {
-    $ext = pathinfo($_FILES['store_photo']['name'], PATHINFO_EXTENSION);
-    $storePhotoPath = 'toko_' . time() . '_' . uniqid() . '.' . $ext;
-    move_uploaded_file($_FILES['store_photo']['tmp_name'], $uploadDir . $storePhotoPath);
-}
-
-// Hash password
-$hash = password_hash($password, PASSWORD_DEFAULT);
-
-// Mulai transaksi
-$conn->begin_transaction();
-
-try {
-    // Insert user dengan role seller
-    $stmt = $conn->prepare('INSERT INTO users (nama, email, password, phone, role) VALUES (?, ?, ?, ?, "seller")');
-    $stmt->bind_param('ssss', $ownerName, $email, $hash, $phone);
-    $stmt->execute();
-    $sellerId = $conn->insert_id;
-    $stmt->close();
-    
-    // Insert toko
-    $stmt = $conn->prepare('INSERT INTO toko (nama, alamat, kota, deskripsi, seller_id) VALUES (?, ?, ?, ?, ?)');
-    $stmt->bind_param('ssssi', $storeName, $address, $city, $storeDescription, $sellerId);
-    $stmt->execute();
-    $tokoId = $conn->insert_id;
-    $stmt->close();
-    
-    // Simpan data verifikasi ke tabel terpisah (jika ada)
-    // Bisa tambahkan tabel `verifikasi_penjual` jika diperlukan
-    
-    $conn->commit();
-    
+if (!$toko_id) {
+    // If seller has no store yet
     echo json_encode([
         'success' => true,
-        'message' => 'Pendaftaran penjual berhasil, menunggu verifikasi',
-        'user_id' => $sellerId,
-        'toko_id' => $tokoId
+        'data' => [
+            'total_orders' => 0,
+            'pending_orders' => 0,
+            'total_products' => 0
+        ]
     ]);
-    
-} catch (Exception $e) {
-    $conn->rollback();
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Gagal mendaftar: ' . $e->getMessage()]);
+    exit;
 }
+
+// 2. Count total products in store
+$stmt = $conn->prepare('SELECT COUNT(*) as total FROM produk WHERE toko_id = ?');
+$stmt->bind_param('i', $toko_id);
+$stmt->execute();
+$res = $stmt->get_result()->fetch_assoc();
+$total_products = (int)($res['total'] ?? 0);
+$stmt->close();
+
+// 3. Count total orders for the store
+$stmt = $conn->prepare(
+    'SELECT COUNT(*) as total 
+     FROM pesanan p 
+     JOIN produk pr ON p.produk_id = pr.id 
+     WHERE pr.toko_id = ?'
+);
+$stmt->bind_param('i', $toko_id);
+$stmt->execute();
+$res = $stmt->get_result()->fetch_assoc();
+$total_orders = (int)($res['total'] ?? 0);
+$stmt->close();
+
+// 4. Count pending orders for the store
+$stmt = $conn->prepare(
+    'SELECT COUNT(*) as total 
+     FROM pesanan p 
+     JOIN produk pr ON p.produk_id = pr.id 
+     WHERE pr.toko_id = ? AND p.status = "menunggu_pembayaran"'
+);
+$stmt->bind_param('i', $toko_id);
+$stmt->execute();
+$res = $stmt->get_result()->fetch_assoc();
+$pending_orders = (int)($res['total'] ?? 0);
+$stmt->close();
+
+echo json_encode([
+    'success' => true,
+    'data' => [
+        'total_orders'   => $total_orders,
+        'pending_orders' => $pending_orders,
+        'total_products' => $total_products
+    ]
+]);
 
 $conn->close();
 ?>

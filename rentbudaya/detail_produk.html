@@ -472,17 +472,24 @@
         const storedProduct = localStorage.getItem('selectedProduct');
         if (storedProduct) {
             product = JSON.parse(storedProduct);
-            // Normalisasi field supaya semua produk bisa pilih gender/size/warna walau data wishlist belum lengkap
-            // Pastikan daftar opsi selalu lengkap (tidak cuma 1 jenis)
-            const MODEL_FALLBACK = ['Pria', 'Wanita'];
-            const UKURAN_FALLBACK = ['S', 'M', 'L', 'XL', 'XXL'];
+            
+            // Set default selected values based on database values
+            if (product.model) {
+                selectedModel = Array.isArray(product.model) ? (product.model[0] || 'Pria') : product.model;
+            }
+            if (product.ukuran) {
+                selectedSize = Array.isArray(product.ukuran) ? (product.ukuran[0] || 'M') : product.ukuran;
+            }
+            if (product.warna) {
+                selectedColor = Array.isArray(product.warna) ? (product.warna[0] || 'Hitam') : product.warna;
+            } else if (product.varian && product.varian.warna && product.varian.warna.length) {
+                selectedColor = product.varian.warna[0];
+            }
+
+            // Normalisasi agar warna selalu merupakan array yang siap di-render
             const WARNA_FALLBACK = ['Hitam', 'Biru', 'Hijau'];
-
             const ensureArray = (val, fallback) => Array.isArray(val) && val.length ? val : fallback;
-
-            product.model = ensureArray(product.model || product.gender, MODEL_FALLBACK);
-            product.ukuran = ensureArray(product.ukuran || product.sizes, UKURAN_FALLBACK);
-            product.warna = ensureArray(product.warna || product.color, WARNA_FALLBACK);
+            product.warna = ensureArray(product.warna || product.varian?.warna, WARNA_FALLBACK);
 
             renderDetail();
             checkWishlistStatus();
@@ -490,7 +497,6 @@
         } else {
             // Dummy data if no product selected
             product = {
-
                 id: 1,
                 nama: 'Kebaya Beskap Solo',
                 harga_per_hari: 41000,
@@ -522,8 +528,6 @@
         const container = document.getElementById('detailContent');
         const imageUrl = product.gambar ? getImageByColor(selectedColor) : 'https://placehold.co/500x400/E8E0D8/C8593A?text=Produk';
         
-        // Cek status wishlist untuk menentukan class like-btn
-
         const likedClass = isInWishlist ? 'liked' : '';
         const heartIcon = isInWishlist ? 'fas fa-heart' : 'far fa-heart';
         
@@ -560,32 +564,28 @@
                     <div class="info-item">
                         <div class="info-label">Model</div>
                         <div class="model-tags" id="modelTags">
-                            ${(product.model || ['Pria', 'Wanita']).map(m => 
+                            ${['Pria', 'Wanita'].map(m => 
                                 `<span class="model-tag ${selectedModel === m ? 'active' : ''}" onclick="selectModel('${m}')">${m}</span>`
                             ).join('')}
                         </div>
-
-
-
                     </div>
                     <div class="info-item">
                         <div class="info-label">Warna</div>
                         <div class="model-tags" id="colorTags">
-                            <div class="model-tag ${selectedColor === 'Hitam' ? 'active' : ''}" style="margin:0 6px;" onclick="selectColor('Hitam')">Hitam</div>
-                            <div class="model-tag ${selectedColor === 'Biru' ? 'active' : ''}" style="margin:0 6px;" onclick="selectColor('Biru')">Biru</div>
-                            <div class="model-tag ${selectedColor === 'Hijau' ? 'active' : ''}" style="margin:0 6px;" onclick="selectColor('Hijau')">Hijau</div>
+                            ${(product.warna || ['Hitam', 'Biru', 'Hijau']).map(c => 
+                                `<span class="model-tag ${selectedColor === c ? 'active' : ''}" style="margin:0 6px;" onclick="selectColor('${c}')">${c}</span>`
+                            ).join('')}
                         </div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Size</div>
                         <div class="size-tags" id="sizeTags">
-                            ${(product.ukuran || ['S', 'M', 'L', 'XL', 'XXL']).map(s => 
+                            ${['S', 'M', 'L', 'XL', 'XXL'].map(s => 
                                 `<span class="size-tag ${selectedSize === s ? 'active' : ''}" onclick="selectSize('${s}')">${s}</span>`
                             ).join('')}
                         </div>
                     </div>
                 </div>
-
 
                 <h3 class="section-title">Durasi Sewa</h3>
                 <div class="date-section">
@@ -613,7 +613,7 @@
 
     function selectModel(model) {
         selectedModel = model;
-        document.querySelectorAll('.model-tag').forEach(tag => {
+        document.querySelectorAll('#modelTags .model-tag').forEach(tag => {
             tag.classList.remove('active');
             if (tag.textContent === model) tag.classList.add('active');
         });
@@ -621,23 +621,32 @@
 
     function selectSize(size) {
         selectedSize = size;
-        document.querySelectorAll('.size-tag').forEach(tag => {
+        document.querySelectorAll('#sizeTags .size-tag').forEach(tag => {
             tag.classList.remove('active');
             if (tag.textContent === size) tag.classList.add('active');
         });
     }
 
-    // Jika product menyediakan pilihan warna, gambar akan ikut berubah
     function selectColor(color) {
         selectedColor = color;
-        // Update active class (jika ada UI warna)
-        document.querySelectorAll('[data-color]').forEach(el => {
-            el.classList.toggle('active', el.dataset.color === color);
-        });
-        // Rerender gambar saja (paling aman)
-        renderDetail();
+        
+        // Update main image background
+        const mainImage = document.querySelector('.main-image');
+        if (mainImage) {
+            mainImage.style.backgroundImage = `url('${getImageByColor(color)}')`;
+        }
+        
+        // Update active class for color tags
+        const colorTagsContainer = document.getElementById('colorTags');
+        if (colorTagsContainer) {
+            colorTagsContainer.querySelectorAll('.model-tag').forEach(tag => {
+                tag.classList.remove('active');
+                if (tag.textContent === color) {
+                    tag.classList.add('active');
+                }
+            });
+        }
     }
-
 
     // Wishlist functions
     function getWishlist() {
@@ -655,6 +664,7 @@
         isInWishlist = wishlist.some(item => item.id === product.id);
     }
 
+    // Update counts
     function updateWishlistCount() {
         const wishlist = getWishlist();
         const count = wishlist.length;
@@ -768,6 +778,7 @@
             product: product,
             model: selectedModel,
             size: selectedSize,
+            color: selectedColor,
             startDate: startDate,
             endDate: endDate,
             duration: days,
@@ -811,6 +822,7 @@
     window.toggleWishlist = toggleWishlist;
     window.selectModel = selectModel;
     window.selectSize = selectSize;
+    window.selectColor = selectColor;
     window.proceedToRent = proceedToRent;
     window.goBack = goBack;
 

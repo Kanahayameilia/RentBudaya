@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Beranda - RentBudaya</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -408,7 +410,7 @@
             border-radius: 20px;
             font-size: 11px;
         }
-        
+
         .like-overlay {
             position: absolute;
             top: 10px;
@@ -422,14 +424,14 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             z-index: 5;
         }
 
         .like-overlay i {
             font-size: 18px;
             color: #A89888;
-        } 
+        }
 
         .like-overlay.liked i {
             color: #DC2626;
@@ -499,6 +501,7 @@
             .container {
                 padding: 20px 25px;
             }
+
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             }
@@ -508,22 +511,28 @@
             .navbar {
                 padding: 15px 20px;
             }
+
             .search-box input {
                 width: 150px;
             }
+
             .container {
                 padding: 20px;
             }
+
             .welcome-banner {
                 padding: 20px 25px;
             }
+
             .welcome-banner h1 {
                 font-size: 22px;
             }
+
             .product-grid {
                 max-height: 500px;
                 gap: 15px;
             }
+
             .nav-icon {
                 width: 40px;
                 height: 40px;
@@ -535,306 +544,311 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
             .product-grid {
                 grid-template-columns: 1fr;
             }
+
             .profile-info {
                 display: none;
             }
         }
     </style>
 </head>
+
 <body>
 
-<div class="batik-bg"></div>
+    <div class="batik-bg"></div>
 
-<nav class="navbar">
-    <div class="logo">RentBudaya</div>
-    <div class="nav-right">
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Cari produk...">
-        </div>
-        <div class="location-dropdown">
-            <button class="location-btn" id="locationBtn">
-                <i class="fas fa-map-marker-alt"></i> <span id="selectedLocation">Magelang</span> ▾
-            </button>
-            <div class="dropdown-menu" id="locationMenu">
-                <div data-kota="Magelang"><i class="fas fa-map-marker-alt"></i> Magelang</div>
-                <div data-kota="Yogyakarta"><i class="fas fa-map-marker-alt"></i> Yogyakarta</div>
-                <div data-kota="Solo"><i class="fas fa-map-marker-alt"></i> Solo</div>
-                <div data-kota="Semarang"><i class="fas fa-map-marker-alt"></i> Semarang</div>
-                <div data-kota="Kebumen"><i class="fas fa-map-marker-alt"></i> Kebumen</div>
-                <div data-kota="Kendal"><i class="fas fa-map-marker-alt"></i> Kendal</div>
+    <nav class="navbar">
+        <div class="logo">RentBudaya</div>
+        <div class="nav-right">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Cari produk...">
+            </div>
+            <div class="location-dropdown">
+                <button class="location-btn" id="locationBtn">
+                    <i class="fas fa-map-marker-alt"></i> <span id="selectedLocation">Magelang</span> ▾
+                </button>
+                <div class="dropdown-menu" id="locationMenu">
+                    <div data-kota="Magelang"><i class="fas fa-map-marker-alt"></i> Magelang</div>
+                    <div data-kota="Yogyakarta"><i class="fas fa-map-marker-alt"></i> Yogyakarta</div>
+                    <div data-kota="Solo"><i class="fas fa-map-marker-alt"></i> Solo</div>
+                    <div data-kota="Semarang"><i class="fas fa-map-marker-alt"></i> Semarang</div>
+                    <div data-kota="Kebumen"><i class="fas fa-map-marker-alt"></i> Kebumen</div>
+                    <div data-kota="Kendal"><i class="fas fa-map-marker-alt"></i> Kendal</div>
+                    <div data-kota="Purworejo"><i class="fas fa-map-marker-alt"></i> Purworejo</div>
+                </div>
+            </div>
+
+            <!-- ICON PESANAN / ORDER HISTORY -->
+            <div class="nav-icon" id="orderIcon" onclick="window.location.href='pesanan_saya.html'">
+                <i class="fas fa-file-alt"></i>
+                <span class="badge" id="orderCount">0</span>
+            </div>
+
+            <!-- ICON WISHLIST -->
+            <div class="nav-icon" id="wishlistIcon" onclick="window.location.href='wishlist.html'">
+                <i class="far fa-heart"></i>
+                <span class="badge" id="wishlistCount">0</span>
+            </div>
+
+            <div class="profile-avatar" id="profileAvatar">
+                <div class="avatar-img" id="avatarImg">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <span class="profile-name" id="userName">Customer</span>
+                    <span class="profile-username" id="userEmail">user@email.com</span>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="edit_profil_customer.html"><i class="fas fa-user-edit"></i> Informasi Akun</a>
+                    <a href="pesanan_saya.html"><i class="fas fa-file-alt"></i> Pesanan Saya</a>
+                    <a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a>
+                    <a href="#" id="logoutBtn" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
             </div>
         </div>
-        
-        <!-- ICON PESANAN / ORDER HISTORY -->
-        <div class="nav-icon" id="orderIcon" onclick="window.location.href='pesanan_saya.html'">
-            <i class="fas fa-file-alt"></i>
-            <span class="badge" id="orderCount">0</span>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-banner">
+            <h1>Selamat Datang, <span id="welcomeName">Customer</span>! 👋</h1>
+            <p>Temukan berbagai pakaian adat tradisional dari toko terdekat di <span
+                    id="welcomeLocation">Magelang</span></p>
         </div>
-        
-        <!-- ICON WISHLIST -->
-        <div class="nav-icon" id="wishlistIcon" onclick="window.location.href='wishlist.html'">
-            <i class="far fa-heart"></i>
-            <span class="badge" id="wishlistCount">0</span>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-store"></i></div>
+                <div class="stat-info">
+                    <h3 id="totalStores">0</h3>
+                    <p>Toko Tersedia</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-tshirt"></i></div>
+                <div class="stat-info">
+                    <h3 id="totalProducts">0</h3>
+                    <p>Produk Tersedia</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-info">
+                    <h3>Sewa 3 Hari</h3>
+                    <p>Maksimal Durasi</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="profile-avatar" id="profileAvatar">
-            <div class="avatar-img" id="avatarImg">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="profile-info">
-                <span class="profile-name" id="userName">Customer</span>
-                <span class="profile-username" id="userEmail">user@email.com</span>
-            </div>
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="edit_profil_customer.html"><i class="fas fa-user-edit"></i> Informasi Akun</a>
-                <a href="pesanan_saya.html"><i class="fas fa-file-alt"></i> Pesanan Saya</a>
-                <a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a>
-                <a href="#" id="logoutBtn" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
+
+        <div class="section-title">
+            <h2>✨ Produk Tersedia</h2>
+
         </div>
+
+        <div class="category-tabs" id="categoryTabs">
+            <div class="category-tab active" data-category="all">Semua</div>
+            <div class="category-tab" data-category="Kebaya">Kebaya</div>
+            <div class="category-tab" data-category="Batik">Batik</div>
+            <div class="category-tab" data-category="Beskap">Beskap</div>
+            <div class="category-tab" data-category="Lurik">Lurik</div>
+            <div class="category-tab" data-category="Baju Adat">Baju Adat</div>
+            <div class="category-tab" data-category="Jas">Jas Adat</div>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
     </div>
-</nav>
 
-<div class="container">
-    <div class="welcome-banner">
-        <h1>Selamat Datang, <span id="welcomeName">Customer</span>! 👋</h1>
-        <p>Temukan berbagai pakaian adat tradisional dari toko terdekat di <span id="welcomeLocation">Magelang</span></p>
-    </div>
+    <script>
+        // ============ GLOBAL VARIABLES ============
+        let currentKota = localStorage.getItem('selectedKota') || 'Magelang';
+        let currentCategory = 'all';
+        let currentSearch = '';
+        let allProducts = [];
+        let allStores = [];
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon"><i class="fas fa-store"></i></div>
-            <div class="stat-info">
-                <h3 id="totalStores">0</h3>
-                <p>Toko Tersedia</p>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon"><i class="fas fa-tshirt"></i></div>
-            <div class="stat-info">
-                <h3 id="totalProducts">0</h3>
-                <p>Produk Tersedia</p>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon"><i class="fas fa-clock"></i></div>
-            <div class="stat-info">
-                <h3>Sewa 3 Hari</h3>
-                <p>Maksimal Durasi</p>
-            </div>
-        </div>
-    </div>
+        const imageList = [
+            'imageproduk.jpeg',
+            'imagebiru.jpeg',
+            'imagehijau.jpeg',
+            'imagekebaya.jpeg'
+        ];
 
-    <div class="section-title">
-        <h2>✨ Produk Tersedia</h2>
-        <a href="#">Lihat Semua →</a>
-    </div>
-
-    <div class="category-tabs" id="categoryTabs">
-        <div class="category-tab active" data-category="all">Semua</div>
-        <div class="category-tab" data-category="Kebaya">Kebaya</div>
-        <div class="category-tab" data-category="Batik">Batik</div>
-        <div class="category-tab" data-category="Beskap">Beskap</div>
-        <div class="category-tab" data-category="Lurik">Lurik</div>
-        <div class="category-tab" data-category="Baju Adat">Baju Adat</div>
-        <div class="category-tab" data-category="Jas">Jas Adat</div>
-    </div>
-
-    <div class="product-grid" id="productGrid"></div>
-</div>
-
-<script>
-    // ============ GLOBAL VARIABLES ============
-    let currentKota = localStorage.getItem('selectedKota') || 'Magelang';
-    let currentCategory = 'all';
-    let currentSearch = '';
-    let allProducts = [];
-    let allStores = [];
-
-    const imageList = [
-        'imageproduk.jpeg',
-        'imagebiru.jpeg', 
-        'imagehijau.jpeg',
-        'imagekebaya.jpeg'
-    ];
-
-    // ============ CHECK LOGIN ============
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-    if (!currentUser) {
-        window.location.href = 'login.html';
-    }
-
-    // ============ SET USER INFO ============
-    const displayName = currentUser.nama || 'Customer';
-    const userEmail = currentUser.email || 'user@email.com';
-    const userInitial = displayName.charAt(0).toUpperCase();
-    
-    document.getElementById('userName').textContent = displayName;
-    document.getElementById('userEmail').textContent = userEmail;
-    document.getElementById('welcomeName').textContent = displayName;
-    document.getElementById('selectedLocation').textContent = currentKota;
-    document.getElementById('welcomeLocation').textContent = currentKota;
-    document.getElementById('avatarImg').innerHTML = userInitial;
-
-    // ============ WISHLIST FUNCTIONS ============
-    function getWishlist() {
-        const wishlist = localStorage.getItem('wishlist');
-        return wishlist ? JSON.parse(wishlist) : [];
-    }
-
-    function saveWishlist(wishlist) {
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        updateWishlistCount();
-    }
-
-    function updateWishlistCount() {
-        const wishlist = getWishlist();
-        const count = wishlist.length;
-        const badge = document.getElementById('wishlistCount');
-        if (badge) {
-            badge.textContent = count;
-            badge.style.display = count > 0 ? 'inline-block' : 'none';
+        // ============ CHECK LOGIN ============
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        if (!currentUser) {
+            window.location.href = 'login.html';
         }
-    }
 
-    // ============ ORDER FUNCTIONS ============
-    function getOrders() {
-        const orders = localStorage.getItem('userOrders');
-        return orders ? JSON.parse(orders) : [];
-    }
+        // ============ SET USER INFO ============
+        const displayName = currentUser.nama || 'Customer';
+        const userEmail = currentUser.email || 'user@email.com';
+        const userInitial = displayName.charAt(0).toUpperCase();
 
-    function updateOrderCount() {
-        const orders = getOrders();
-        const count = orders.length;
-        const badge = document.getElementById('orderCount');
-        if (badge) {
-            badge.textContent = count;
-            badge.style.display = count > 0 ? 'inline-block' : 'none';
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = userEmail;
+        document.getElementById('welcomeName').textContent = displayName;
+        document.getElementById('selectedLocation').textContent = currentKota;
+        document.getElementById('welcomeLocation').textContent = currentKota;
+        document.getElementById('avatarImg').innerHTML = userInitial;
+
+        // ============ WISHLIST FUNCTIONS ============
+        function getWishlist() {
+            const wishlist = localStorage.getItem('wishlist');
+            return wishlist ? JSON.parse(wishlist) : [];
         }
-    }
 
-    function checkWishlistStatus(productId) {
-        const wishlist = getWishlist();
-        return wishlist.some(item => item.id == productId);
-    }
-
-    function toggleWishlistFromCard(event, productId) {
-        event.stopPropagation();
-        const product = allProducts.find(p => p.id == productId);
-        if (!product) return;
-        
-        let wishlist = getWishlist();
-        const index = wishlist.findIndex(item => item.id == productId);
-        
-        if (index === -1) {
-            wishlist.push({
-                id: product.id,
-                nama: product.nama,
-                harga_per_hari: product.harga_per_hari,
-                store_name: product.store_name,
-                gambar: product.gambar
-            });
-            showToast('✅ Ditambahkan ke Wishlist');
-        } else {
-            wishlist.splice(index, 1);
-            showToast('🗑️ Dihapus dari Wishlist');
+        function saveWishlist(wishlist) {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
         }
-        
-        saveWishlist(wishlist);
-        renderProducts();
-    }
 
-    function showToast(message) {
-        const toast = document.createElement('div');
-        toast.textContent = message;
-        toast.style.position = 'fixed';
-        toast.style.bottom = '20px';
-        toast.style.left = '50%';
-        toast.style.transform = 'translateX(-50%)';
-        toast.style.backgroundColor = '#2C1A0E';
-        toast.style.color = 'white';
-        toast.style.padding = '12px 24px';
-        toast.style.borderRadius = '50px';
-        toast.style.fontSize = '14px';
-        toast.style.zIndex = '1000';
-        toast.style.animation = 'fadeInOut 2s ease';
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2000);
-    }
-
-    // ============ IMAGE FUNCTIONS ============
-    function getProductImage(productName, productId) {
-        const hash = (productId || Math.random()) % imageList.length;
-        return `Assets/image/${imageList[hash]}`;
-    }
-
-    // ============ PRODUCT FUNCTIONS ============
-    function viewProductDetail(btn) {
-        const card = btn.closest('.product-card');
-        const productData = JSON.parse(card.dataset.product);
-
-        // Mapping field agar detail_produk.html bisa render tanpa kosong
-        // Struktur dari API produk: id, toko_id, nama, deskripsi, harga_per_hari, ukuran, gambar (+ varian di tabel varian, jika ada)
-        const mapped = {
-            ...productData,
-            // detail_produk.html pakai: address, description, model, ukuran, gambar
-            address: productData.address || productData.alamat || productData.store_alamat,
-            description: productData.description || productData.deskripsi,
-            // model & ukuran bisa berupa string/array dari API; biar aman, normalisasi
-            ukuran: Array.isArray(productData.ukuran)
-                ? productData.ukuran
-                : (typeof productData.ukuran === 'string' && productData.ukuran.trim() !== ''
-                    ? productData.ukuran.split(',').map(s => s.trim()).filter(Boolean)
-                    : productData.varian_size || productData.sizes || ['S','M','L','XL','XXL']),
-            model: Array.isArray(productData.model)
-                ? productData.model
-                : (typeof productData.model === 'string' && productData.model.trim() !== ''
-                    ? productData.model.split(',').map(s => s.trim()).filter(Boolean)
-                    : productData.model_varian || productData.varian?.model || ['Pria','Wanita']),
-            gambar: productData.gambar || productData.image || productData.gambar_produk
-        };
-
-        localStorage.setItem('selectedProduct', JSON.stringify(mapped));
-        window.location.href = 'detail_produk.html';
-    }
-
-    function renderProducts() {
-        const productGrid = document.getElementById('productGrid');
-        
-        let filteredProducts = [...allProducts];
-        
-        if (currentCategory !== 'all') {
-            filteredProducts = filteredProducts.filter(p => 
-                p.nama && p.nama.toLowerCase().includes(currentCategory.toLowerCase())
-            );
+        function updateWishlistCount() {
+            const wishlist = getWishlist();
+            const count = wishlist.length;
+            const badge = document.getElementById('wishlistCount');
+            if (badge) {
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'inline-block' : 'none';
+            }
         }
-        
-        if (currentSearch.trim() !== '') {
-            const searchTerm = currentSearch.toLowerCase();
-            filteredProducts = filteredProducts.filter(p => 
-                (p.nama && p.nama.toLowerCase().includes(searchTerm)) ||
-                (p.store_name && p.store_name.toLowerCase().includes(searchTerm))
-            );
+
+        // ============ ORDER FUNCTIONS ============
+        function getOrders() {
+            const orders = localStorage.getItem('userOrders');
+            return orders ? JSON.parse(orders) : [];
         }
-        
-        if (filteredProducts.length === 0) {
-            productGrid.innerHTML = '<div class="loading">🔍 Tidak ada produk yang sesuai</div>';
-            return;
+
+        function updateOrderCount() {
+            const orders = getOrders();
+            const count = orders.length;
+            const badge = document.getElementById('orderCount');
+            if (badge) {
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'inline-block' : 'none';
+            }
         }
-        
-        productGrid.innerHTML = filteredProducts.map((product, index) => {
-            const stock = Math.floor(Math.random() * 15) + 3;
-            const imageUrl = getProductImage(product.nama, product.id || index);
-            const isInWishlist = checkWishlistStatus(product.id);
-            const heartClass = isInWishlist ? 'fas fa-heart' : 'far fa-heart';
-            const likedClass = isInWishlist ? 'liked' : '';
-            
-            return `
-                <div class="product-card" data-product='${JSON.stringify(product)}'>
+
+        function checkWishlistStatus(productId) {
+            const wishlist = getWishlist();
+            return wishlist.some(item => item.id == productId);
+        }
+
+        function toggleWishlistFromCard(event, productId) {
+            event.stopPropagation();
+            const product = allProducts.find(p => p.id == productId);
+            if (!product) return;
+
+            let wishlist = getWishlist();
+            const index = wishlist.findIndex(item => item.id == productId);
+
+            if (index === -1) {
+                wishlist.push({
+                    id: product.id,
+                    nama: product.nama,
+                    harga_per_hari: product.harga_per_hari,
+                    store_name: product.store_name,
+                    gambar: product.gambar
+                });
+                showToast('✅ Ditambahkan ke Wishlist');
+            } else {
+                wishlist.splice(index, 1);
+                showToast('🗑️ Dihapus dari Wishlist');
+            }
+
+            saveWishlist(wishlist);
+            renderProducts();
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#2C1A0E';
+            toast.style.color = 'white';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '50px';
+            toast.style.fontSize = '14px';
+            toast.style.zIndex = '1000';
+            toast.style.animation = 'fadeInOut 2s ease';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        // ============ IMAGE FUNCTIONS ============
+        function getProductImage(productName, productId) {
+            const hash = (productId || Math.random()) % imageList.length;
+            return `Assets/image/${imageList[hash]}`;
+        }
+
+        // ============ PRODUCT FUNCTIONS ============
+        function viewProductDetail(btn) {
+            const card = btn.closest('.product-card');
+            const productData = JSON.parse(card.dataset.product);
+
+            // Mapping field agar detail_produk.html bisa render tanpa kosong
+            // Struktur dari API produk: id, toko_id, nama, deskripsi, harga_per_hari, ukuran, gambar (+ varian di tabel varian, jika ada)
+            const mapped = {
+                ...productData,
+                // detail_produk.html pakai: address, description, model, ukuran, gambar
+                address: productData.address || productData.alamat || productData.store_alamat,
+                description: productData.description || productData.deskripsi,
+                // model & ukuran bisa berupa string/array dari API; biar aman, normalisasi
+                ukuran: Array.isArray(productData.ukuran)
+                    ? productData.ukuran
+                    : (typeof productData.ukuran === 'string' && productData.ukuran.trim() !== ''
+                        ? productData.ukuran.split(',').map(s => s.trim()).filter(Boolean)
+                        : productData.varian_size || productData.sizes || ['S', 'M', 'L', 'XL', 'XXL']),
+                model: Array.isArray(productData.model)
+                    ? productData.model
+                    : (typeof productData.model === 'string' && productData.model.trim() !== ''
+                        ? productData.model.split(',').map(s => s.trim()).filter(Boolean)
+                        : productData.model_varian || productData.varian?.model || ['Pria', 'Wanita']),
+                gambar: productData.gambar || productData.image || productData.gambar_produk
+            };
+
+            localStorage.setItem('selectedProduct', JSON.stringify(mapped));
+            window.location.href = 'detail_produk.html';
+        }
+
+        function renderProducts() {
+            const productGrid = document.getElementById('productGrid');
+
+            let filteredProducts = [...allProducts];
+
+            if (currentCategory !== 'all') {
+                filteredProducts = filteredProducts.filter(p =>
+                    p.nama && p.nama.toLowerCase().includes(currentCategory.toLowerCase())
+                );
+            }
+
+            if (currentSearch.trim() !== '') {
+                const searchTerm = currentSearch.toLowerCase();
+                filteredProducts = filteredProducts.filter(p =>
+                    (p.nama && p.nama.toLowerCase().includes(searchTerm)) ||
+                    (p.store_name && p.store_name.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            if (filteredProducts.length === 0) {
+                productGrid.innerHTML = '<div class="loading">🔍 Tidak ada produk yang sesuai</div>';
+                return;
+            }
+
+            productGrid.innerHTML = filteredProducts.map((product, index) => {
+                const stock = Math.floor(Math.random() * 15) + 3;
+                const imageUrl = getProductImage(product.nama, product.id || index);
+                const isInWishlist = checkWishlistStatus(product.id);
+                const heartClass = isInWishlist ? 'fas fa-heart' : 'far fa-heart';
+                const likedClass = isInWishlist ? 'liked' : '';
+
+                return `
+                <div class="product-card" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}'>
                     <div class="product-image" style="background-image: url('${imageUrl}')">
                         <div class="stock-badge"><i class="fas fa-box"></i> Tersedia ${stock}</div>
                         <div class="like-overlay ${likedClass}" onclick="toggleWishlistFromCard(event, ${product.id})">
@@ -854,130 +868,139 @@
                     </div>
                 </div>
             `;
-        }).join('');
-    }
+            }).join('');
+        }
 
-    // ============ LOAD PRODUCTS FROM API ============
-    function showDummyProducts() {
-        const dummyProducts = [
-            { id: 1, nama: 'Kebaya Beskap Jawa', harga_per_hari: 41000, store_name: 'Toko Adat Jaya', gambar: 'imageproduk.jpeg' },
-            { id: 2, nama: 'Batik Solo', harga_per_hari: 35000, store_name: 'Batik Heritage Store', gambar: 'imagebiru.jpeg' },
-            { id: 3, nama: 'Beskap Putih', harga_per_hari: 120000, store_name: 'Toko Baju Daerah', gambar: 'imagehijau.jpeg' },
-            { id: 4, nama: 'Lurik Jogja', harga_per_hari: 28000, store_name: 'Butik Hana', gambar: 'imagekebaya.jpeg' },
-            { id: 5, nama: 'Kebaya Encim', harga_per_hari: 280000, store_name: 'Rental Kebaya Modern', gambar: 'imageproduk.jpeg' },
-            { id: 6, nama: 'Baju Adat Bali', harga_per_hari: 350000, store_name: 'Sewa Baju Pengantin Adat', gambar: 'imagebiru.jpeg' },
-            { id: 7, nama: 'Jas Adat Premium', harga_per_hari: 420000, store_name: 'Batik Heritage Store', gambar: 'imagehijau.jpeg' },
-            { id: 8, nama: 'Kebaya Brokat', harga_per_hari: 450000, store_name: 'Toko Adat Jaya', gambar: 'imagekebaya.jpeg' },
-            { id: 9, nama: 'Beskap Hitam', harga_per_hari: 130000, store_name: 'Toko Baju Daerah', gambar: 'imageproduk.jpeg' },
-            { id: 10, nama: 'Kebaya Modern', harga_per_hari: 95000, store_name: 'Butik Hana', gambar: 'imagebiru.jpeg' },
-            { id: 11, nama: 'Batik Keraton', harga_per_hari: 75000, store_name: 'Batik Heritage Store', gambar: 'imagehijau.jpeg' },
-            { id: 12, nama: 'Kebaya Bali', harga_per_hari: 150000, store_name: 'Toko Adat Jaya', gambar: 'imagekebaya.jpeg' }
-        ];
-        
-        allProducts = dummyProducts;
-        allStores = [...new Set(dummyProducts.map(p => ({ nama: p.store_name })))];
-        
-        document.getElementById('totalStores').textContent = allStores.length;
-        document.getElementById('totalProducts').textContent = allProducts.length;
-        
-        renderProducts();
-    }
+        // ============ LOAD PRODUCTS FROM API ============
+        function showDummyProducts() {
+            const dummyProducts = [
+                { id: 1, nama: 'Kebaya Beskap Jawa', harga_per_hari: 41000, store_name: 'Toko Adat Jaya', gambar: 'imageproduk.jpeg' },
+                { id: 2, nama: 'Batik Solo', harga_per_hari: 35000, store_name: 'Batik Heritage Store', gambar: 'imagebiru.jpeg' },
+                { id: 3, nama: 'Beskap Putih', harga_per_hari: 120000, store_name: 'Toko Baju Daerah', gambar: 'imagehijau.jpeg' },
+                { id: 4, nama: 'Lurik Jogja', harga_per_hari: 28000, store_name: 'Butik Hana', gambar: 'imagekebaya.jpeg' },
+                { id: 5, nama: 'Kebaya Encim', harga_per_hari: 280000, store_name: 'Rental Kebaya Modern', gambar: 'imageproduk.jpeg' },
+                { id: 6, nama: 'Baju Adat Bali', harga_per_hari: 350000, store_name: 'Sewa Baju Pengantin Adat', gambar: 'imagebiru.jpeg' },
+                { id: 7, nama: 'Jas Adat Premium', harga_per_hari: 420000, store_name: 'Batik Heritage Store', gambar: 'imagehijau.jpeg' },
+                { id: 8, nama: 'Kebaya Brokat', harga_per_hari: 450000, store_name: 'Toko Adat Jaya', gambar: 'imagekebaya.jpeg' },
+                { id: 9, nama: 'Beskap Hitam', harga_per_hari: 130000, store_name: 'Toko Baju Daerah', gambar: 'imageproduk.jpeg' },
+                { id: 10, nama: 'Kebaya Modern', harga_per_hari: 95000, store_name: 'Butik Hana', gambar: 'imagebiru.jpeg' },
+                { id: 11, nama: 'Batik Keraton', harga_per_hari: 75000, store_name: 'Batik Heritage Store', gambar: 'imagehijau.jpeg' },
+                { id: 12, nama: 'Kebaya Bali', harga_per_hari: 150000, store_name: 'Toko Adat Jaya', gambar: 'imagekebaya.jpeg' }
+            ];
 
-    async function loadProducts() {
-        const productGrid = document.getElementById('productGrid');
-        productGrid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Memuat produk...</div>';
-        
-        try {
-            const response = await fetch(`api/toko.php?kota=${encodeURIComponent(currentKota)}`);
-            const result = await response.json();
-            
-            if (result.success && result.data && result.data.length > 0) {
-                allStores = result.data;
-                allProducts = [];
-                
-                result.data.forEach(store => {
-                    if (store.produk && store.produk.length > 0) {
-                        store.produk.forEach(produk => {
-                            allProducts.push({
-                                ...produk,
-                                store_name: store.nama,
-                                store_id: store.id,
-                                store_city: store.kota
+            allProducts = dummyProducts;
+            allStores = [...new Set(dummyProducts.map(p => ({ nama: p.store_name })))];
+
+            document.getElementById('totalStores').textContent = allStores.length;
+            document.getElementById('totalProducts').textContent = allProducts.length;
+
+            renderProducts();
+        }
+
+        async function loadProducts() {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Memuat produk...</div>';
+
+            try {
+                const response = await fetch(`api/toko.php?kota=${encodeURIComponent(currentKota)}`);
+                const result = await response.json();
+
+                if (result.success && result.data && result.data.length > 0) {
+                    allStores = result.data;
+                    allProducts = [];
+
+                    result.data.forEach(store => {
+                        if (store.produk && store.produk.length > 0) {
+                            store.produk.forEach(produk => {
+                                allProducts.push({
+                                    ...produk,
+                                    store_name: store.nama,
+                                    store_id: store.id,
+                                    store_city: store.kota
+                                });
                             });
-                        });
+                        }
+                    });
+
+                    if (allProducts.length > 0) {
+                        document.getElementById('totalStores').textContent = allStores.length;
+                        document.getElementById('totalProducts').textContent = allProducts.length;
+                        renderProducts();
+                    } else {
+                        showDummyProducts();
                     }
-                });
-                
-                if (allProducts.length > 0) {
-                    document.getElementById('totalStores').textContent = allStores.length;
-                    document.getElementById('totalProducts').textContent = allProducts.length;
-                    renderProducts();
                 } else {
                     showDummyProducts();
                 }
-            } else {
+            } catch (error) {
+                console.error('Error loading products:', error);
                 showDummyProducts();
             }
-        } catch (error) {
-            console.error('Error loading products:', error);
-            showDummyProducts();
         }
-    }
 
-    // ============ EVENT LISTENERS ============
-    document.querySelectorAll('.category-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            currentCategory = this.dataset.category;
+        // ============ EVENT LISTENERS ============
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.category;
+                renderProducts();
+            });
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function () {
+            currentSearch = this.value;
+            if (currentSearch.trim() !== '') {
+                currentCategory = 'all';
+                document.querySelectorAll('.category-tab').forEach(t => {
+                    t.classList.remove('active');
+                    if (t.dataset.category === 'all') {
+                        t.classList.add('active');
+                    }
+                });
+            }
             renderProducts();
         });
-    });
 
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', function() {
-        currentSearch = this.value;
-        renderProducts();
-    });
-
-    document.querySelectorAll('#locationMenu div').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.stopPropagation();
-            currentKota = this.dataset.kota;
-            localStorage.setItem('selectedKota', currentKota);
-            document.getElementById('selectedLocation').textContent = currentKota;
-            document.getElementById('welcomeLocation').textContent = currentKota;
-            loadProducts();
+        document.querySelectorAll('#locationMenu div').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.stopPropagation();
+                currentKota = this.dataset.kota;
+                localStorage.setItem('selectedKota', currentKota);
+                document.getElementById('selectedLocation').textContent = currentKota;
+                document.getElementById('welcomeLocation').textContent = currentKota;
+                loadProducts();
+            });
         });
-    });
 
-    // Profile dropdown
-    const profileAvatar = document.getElementById('profileAvatar');
-    const profileDropdown = document.getElementById('profileDropdown');
-    
-    profileAvatar.addEventListener('click', function(e) {
-        e.stopPropagation();
-        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-    });
-    
-    document.addEventListener('click', function() {
-        profileDropdown.style.display = 'none';
-    });
+        // Profile dropdown
+        const profileAvatar = document.getElementById('profileAvatar');
+        const profileDropdown = document.getElementById('profileDropdown');
 
-    // Logout
-    document.getElementById('logoutBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        localStorage.clear();
-        window.location.href = 'login.html';
-    });
+        profileAvatar.addEventListener('click', function (e) {
+            e.stopPropagation();
+            profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+        });
 
-    // Make functions global
-    window.viewProductDetail = viewProductDetail;
-    window.toggleWishlistFromCard = toggleWishlistFromCard;
+        document.addEventListener('click', function () {
+            profileDropdown.style.display = 'none';
+        });
 
-    // Add animation style
-    const style = document.createElement('style');
-    style.textContent = `
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = 'login.html';
+        });
+
+        // Make functions global
+        window.viewProductDetail = viewProductDetail;
+        window.toggleWishlistFromCard = toggleWishlistFromCard;
+
+        // Add animation style
+        const style = document.createElement('style');
+        style.textContent = `
         @keyframes fadeInOut {
             0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
             15% { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -985,15 +1008,16 @@
             100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
         }
     `;
-    document.head.appendChild(style);
+        document.head.appendChild(style);
 
-    // Update counts
-    updateWishlistCount();
-    updateOrderCount();
+        // Update counts
+        updateWishlistCount();
+        updateOrderCount();
 
-    // INITIAL LOAD
-    loadProducts();
-</script>
+        // INITIAL LOAD
+        loadProducts();
+    </script>
 
 </body>
+
 </html>

@@ -296,6 +296,14 @@
                     localStorage.removeItem('savedPassword');
                 }
 
+                // Clear sessional/transactional keys from previous logins
+                localStorage.removeItem('userOrders');
+                localStorage.removeItem('wishlist');
+                localStorage.removeItem('selectedProduct');
+                localStorage.removeItem('rentalData');
+                localStorage.removeItem('currentOrder');
+                localStorage.removeItem('orderNumber');
+
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('currentUser', JSON.stringify(json.user));
                 

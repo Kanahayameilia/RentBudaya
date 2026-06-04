@@ -311,29 +311,47 @@
     function getStatusText(status) {
         switch(status) {
             case 'confirmed': return 'Pembayaran Dikonfirmasi';
-            case 'pending': return 'Menunggu Pembayaran';
+            case 'pending': return 'Menunggu Validasi';
             case 'processing': return 'Diproses';
             case 'ready': return 'Siap Diambil';
+            case 'menunggu_pembayaran': return 'Menunggu Validasi';
+            case 'pembayaran_dikonfirmasi': return 'Pembayaran Dikonfirmasi';
+            case 'diproses': return 'Diproses';
+            case 'siap_diambil': return 'Siap Diambil';
+            case 'dikembalikan': return 'Dikembalikan';
+            case 'selesai': return 'Selesai';
+            case 'dibatalkan': return 'Dibatalkan';
             default: return status;
         }
     }
 
     function getStatusClass(status) {
         switch(status) {
-            case 'confirmed': return 'status-confirmed';
-            case 'pending': return 'status-pending';
-            case 'processing': return 'status-processing';
-            default: return 'status-confirmed';
+            case 'confirmed':
+            case 'pembayaran_dikonfirmasi':
+            case 'selesai':
+                return 'status-confirmed';
+            case 'pending':
+            case 'menunggu_pembayaran':
+                return 'status-pending';
+            case 'processing':
+            case 'diproses':
+            case 'siap_diambil':
+            case 'ready':
+                return 'status-processing';
+            default:
+                return 'status-confirmed';
         }
     }
 
     function viewOrderDetail(order) {
         localStorage.setItem('currentOrder', JSON.stringify(order));
+        localStorage.setItem('orderNumber', order.nomor_pesanan);
         window.location.href = 'detail_pesanan.html';
     }
 
-    function renderOrders() {
-        const orders = getOrders();
+    function renderOrders(ordersList) {
+        const orders = ordersList || getOrders();
         const container = document.getElementById('ordersContainer');
         
         if (orders.length === 0) {
@@ -365,9 +383,9 @@
                                 </div>
                             </div>
                             <div class="order-body">
-                                <div class="order-image" style="background-image: url('${imageUrl}')"></div>
+                                <div class="order-image" style="background-image: url('${imageUrl}'); cursor: pointer;" onclick="event.stopPropagation(); window.goToProductDetail(${JSON.stringify(order.product).replace(/"/g, '&quot;')})"></div>
                                 <div class="order-details">
-                                    <div class="order-product-name">${order.product?.nama || order.product_name || 'Produk'}</div>
+                                    <div class="order-product-name" style="cursor: pointer; text-decoration: underline;" onclick="event.stopPropagation(); window.goToProductDetail(${JSON.stringify(order.product).replace(/"/g, '&quot;')})">${order.product?.nama || order.product_name || 'Produk'}</div>
                                     <div class="order-store"><i class="fas fa-store"></i> ${order.store_name || 'Toko'}</div>
                                     <div class="order-info-row">
                                         <span>${order.size || 'M'}</span>
@@ -389,11 +407,66 @@
         `;
     }
 
+    async function loadOrdersFromDB() {
+        const container = document.getElementById('ordersContainer');
+        container.innerHTML = '<div style="text-align:center; padding:50px; color:#A89888;"><i class="fas fa-spinner fa-pulse"></i> Memuat riwayat pesanan...</div>';
+        
+        try {
+            const res = await fetch(`api/pesanan.php?user_id=${currentUser.id}`);
+            const json = await res.json();
+            
+            if (json.success && json.data) {
+                const mappedOrders = json.data.map(order => ({
+                    nomor_pesanan: order.nomor_pesanan,
+                    tanggal_pesan: order.created_at,
+                    paymentDate: order.created_at,
+                    status: order.status,
+                    product: {
+                        id: order.produk_id,
+                        nama: order.nama_produk,
+                        gambar: order.gambar
+                    },
+                    store_name: order.nama_toko,
+                    size: order.ukuran,
+                    color: order.warna,
+                    model: order.model,
+                    startDate: order.tanggal_mulai,
+                    endDate: order.tanggal_selesai,
+                    duration: order.durasi_hari,
+                    total: parseFloat(order.total_harga)
+                }));
+                
+                localStorage.setItem('userOrders', JSON.stringify(mappedOrders));
+                renderOrders(mappedOrders);
+            } else {
+                renderOrders(getOrders());
+            }
+        } catch (e) {
+            console.error(e);
+            renderOrders(getOrders());
+        }
+    }
+
+    function goToProductDetail(product) {
+        if (!product) return;
+        const enrichedProduct = {
+            id: product.id,
+            nama: product.nama,
+            gambar: product.gambar,
+            ukuran: ['S', 'M', 'L', 'XL', 'XXL'],
+            model: ['Pria', 'Wanita'],
+            warna: ['Hitam', 'Biru', 'Hijau']
+        };
+        localStorage.setItem('selectedProduct', JSON.stringify(enrichedProduct));
+        window.location.href = 'detail_produk.html';
+    }
+
     // Make functions global
     window.viewOrderDetail = viewOrderDetail;
+    window.goToProductDetail = goToProductDetail;
 
     // Initial render
-    renderOrders();
+    loadOrdersFromDB();
 </script>
 
 </body>

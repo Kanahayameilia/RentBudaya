@@ -279,7 +279,7 @@
         }
 
         try {
-            const res = await fetch('api/login.php', {
+            const res = await fetch('api/login_penjual.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -297,14 +297,18 @@
                     localStorage.removeItem('savedPassword');
                 }
 
+                // Clear sessional/transactional keys from previous logins
+                localStorage.removeItem('userOrders');
+                localStorage.removeItem('wishlist');
+                localStorage.removeItem('selectedProduct');
+                localStorage.removeItem('rentalData');
+                localStorage.removeItem('currentOrder');
+                localStorage.removeItem('orderNumber');
+
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('currentUser', JSON.stringify(json.user));
                 
-                if (json.user.role === 'seller') {
-                    window.location.href = 'dashboard_penjual.html';
-                } else {
-                    window.location.href = 'caritoko.html';
-                }
+                window.location.href = 'dashboard_penjual.html';
             } else {
                 if (json.message === 'Email belum terdaftar') {
                     errorMsg.textContent = 'Email belum terdaftar';
