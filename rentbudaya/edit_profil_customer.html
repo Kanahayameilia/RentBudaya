@@ -363,6 +363,11 @@
     }
     loadUserData();
 
+    // Batasi input nomor WhatsApp hanya angka
+    document.getElementById('phone').addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '');
+    });
+
     // Logout
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
         e.preventDefault();
@@ -396,6 +401,18 @@
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
             errorMsg.textContent = "Email tidak valid!";
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        if (!phone) {
+            errorMsg.textContent = "Nomor WhatsApp wajib diisi!";
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        if (!/^\d+$/.test(phone)) {
+            errorMsg.textContent = "Nomor WhatsApp hanya boleh berisi angka!";
             errorMsg.style.display = 'block';
             return;
         }

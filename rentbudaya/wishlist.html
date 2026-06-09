@@ -437,11 +437,10 @@
             return;
         }
         
-        const stock = Math.floor(Math.random() * 10) + 3;
-        
         container.innerHTML = `
             <div class="wishlist-grid">
                 ${wishlist.map(item => {
+                    const stock = ((item.id || 0) % 8) + 3;
                     const imageUrl = item.gambar ? `Assets/image/${item.gambar}` : 'https://placehold.co/120x120/E8E0D8/C8593A?text=Produk';
                     return `
                         <div class="wishlist-card">

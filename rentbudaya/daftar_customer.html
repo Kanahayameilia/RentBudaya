@@ -270,6 +270,11 @@
     </div>
 
     <script>
+        // Batasi input nomor WhatsApp hanya angka
+        document.getElementById('phone').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
+
         document.getElementById('registerForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -299,6 +304,18 @@
 
             if (password.length < 6) {
                 errorMsg.textContent = "Password minimal 6 karakter!";
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            if (!phone) {
+                errorMsg.textContent = "Nomor WhatsApp wajib diisi!";
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            if (!/^\d+$/.test(phone)) {
+                errorMsg.textContent = "Nomor WhatsApp hanya boleh berisi angka!";
                 errorMsg.style.display = 'block';
                 return;
             }

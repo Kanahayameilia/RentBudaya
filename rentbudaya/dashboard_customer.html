@@ -673,7 +673,8 @@
             'imageproduk.jpeg',
             'imagebiru.jpeg',
             'imagehijau.jpeg',
-            'imagekebaya.jpeg'
+            'imagekebaya.jpeg',
+            'imagepapua.jpeg'
         ];
 
         // ============ CHECK LOGIN ============
@@ -781,8 +782,11 @@
         }
 
         // ============ IMAGE FUNCTIONS ============
-        function getProductImage(productName, productId) {
-            const hash = (productId || Math.random()) % imageList.length;
+        function getProductImage(product) {
+            if (product && product.gambar && product.gambar.trim() !== '') {
+                return `Assets/image/${product.gambar}`;
+            }
+            const hash = (product.id || Math.random()) % imageList.length;
             return `Assets/image/${imageList[hash]}`;
         }
 
@@ -809,7 +813,7 @@
                     : (typeof productData.model === 'string' && productData.model.trim() !== ''
                         ? productData.model.split(',').map(s => s.trim()).filter(Boolean)
                         : productData.model_varian || productData.varian?.model || ['Pria', 'Wanita']),
-                gambar: productData.gambar || productData.image || productData.gambar_produk
+                gambar: productData.gambar || productData.image || productData.gambar_produk || getProductImage(productData).replace('Assets/image/', '')
             };
 
             localStorage.setItem('selectedProduct', JSON.stringify(mapped));
@@ -841,8 +845,8 @@
             }
 
             productGrid.innerHTML = filteredProducts.map((product, index) => {
-                const stock = Math.floor(Math.random() * 15) + 3;
-                const imageUrl = getProductImage(product.nama, product.id || index);
+                const stock = ((product.id || index) % 8) + 3;
+                const imageUrl = getProductImage(product);
                 const isInWishlist = checkWishlistStatus(product.id);
                 const heartClass = isInWishlist ? 'fas fa-heart' : 'far fa-heart';
                 const likedClass = isInWishlist ? 'liked' : '';

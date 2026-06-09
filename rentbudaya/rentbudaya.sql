@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 03 Jun 2026 pada 13.36
+-- Waktu pembuatan: 09 Jun 2026 pada 03.29
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -58,7 +58,26 @@ INSERT INTO `pembayaran` (`id`, `pesanan_id`, `metode`, `status`, `waktu_bayar`,
 (15, 15, 'QRIS', 'lunas', '2026-04-30 05:01:31', '2026-04-30 10:01:29'),
 (16, 16, 'QRIS', 'lunas', '2026-05-06 19:00:07', '2026-05-07 00:00:06'),
 (17, 17, 'QRIS', 'lunas', '2026-05-06 19:45:21', '2026-05-07 00:45:19'),
-(18, 18, 'QRIS', 'lunas', '2026-05-07 05:01:08', '2026-05-07 10:01:06');
+(18, 18, 'QRIS', 'lunas', '2026-05-07 05:01:08', '2026-05-07 10:01:06'),
+(19, 19, 'QRIS', 'menunggu', NULL, '2026-06-04 11:00:04'),
+(20, 20, 'QRIS', 'menunggu', NULL, '2026-06-04 11:04:12'),
+(21, 21, 'QRIS', 'menunggu', NULL, '2026-06-04 11:30:10'),
+(22, 22, 'QRIS', 'menunggu', NULL, '2026-06-04 13:16:18'),
+(23, 23, 'QRIS', 'menunggu', NULL, '2026-06-04 13:19:23'),
+(24, 24, 'QRIS', 'menunggu', NULL, '2026-06-04 13:24:27'),
+(25, 25, 'QRIS', 'menunggu', NULL, '2026-06-04 14:48:49'),
+(26, 26, 'QRIS', 'menunggu', NULL, '2026-06-04 14:51:37'),
+(27, 27, 'QRIS', 'menunggu', NULL, '2026-06-04 15:02:24'),
+(28, 28, 'QRIS', 'menunggu', NULL, '2026-06-04 15:11:25'),
+(29, 29, 'QRIS', 'menunggu', NULL, '2026-06-04 15:17:14'),
+(30, 30, 'QRIS', 'menunggu', NULL, '2026-06-04 19:56:02'),
+(31, 31, 'QRIS', 'menunggu', NULL, '2026-06-05 19:24:03'),
+(32, 32, 'QRIS', 'menunggu', NULL, '2026-06-05 19:39:32'),
+(33, 33, 'QRIS', 'lunas', '2026-06-07 08:50:11', '2026-06-07 13:49:32'),
+(35, 34, 'QRIS', 'lunas', '2026-06-07 09:12:18', '2026-06-07 14:10:07'),
+(37, 35, 'QRIS', 'menunggu', NULL, '2026-06-07 14:12:57'),
+(38, 36, 'QRIS', 'menunggu', NULL, '2026-06-07 14:18:54'),
+(39, 37, 'QRIS', 'menunggu', NULL, '2026-06-07 14:29:35');
 
 -- --------------------------------------------------------
 
@@ -105,7 +124,26 @@ INSERT INTO `pesanan` (`id`, `nomor_pesanan`, `user_id`, `produk_id`, `model`, `
 (15, 'RB878479', 4, 8, 'Wanita', 'Hijau', 'L', '2026-04-30', '2026-05-01', 2, 700000.00, 'pembayaran_dikonfirmasi', '2026-04-30 10:01:29', '2026-04-30 10:01:31'),
 (16, 'RB293551', 6, 39, 'Pria', 'Hijau', 'L', '2026-05-06', '2026-05-08', 3, 1320000.00, 'pembayaran_dikonfirmasi', '2026-05-07 00:00:06', '2026-05-07 00:00:07'),
 (17, 'RB367768', 3, 53, 'Wanita', 'Hijau', 'L', '2026-05-07', '2026-05-09', 3, 1560000.00, 'pembayaran_dikonfirmasi', '2026-05-07 00:45:19', '2026-05-07 00:45:21'),
-(18, 'RB847115', 4, 39, 'Pria', 'Hitam', 'L', '2026-05-07', '2026-05-09', 3, 1320000.00, 'pembayaran_dikonfirmasi', '2026-05-07 10:01:06', '2026-05-07 10:01:08');
+(18, 'RB847115', 4, 39, 'Pria', 'Hitam', 'L', '2026-05-07', '2026-05-09', 3, 1320000.00, 'pembayaran_dikonfirmasi', '2026-05-07 10:01:06', '2026-05-07 10:01:08'),
+(19, 'RB244298', 33, 9, 'Wanita', 'Biru', 'XL', '2026-06-05', '2026-06-07', 3, 540000.00, 'menunggu_pembayaran', '2026-06-04 11:00:04', '2026-06-04 11:00:04'),
+(20, 'RB860672', 32, 3, 'Wanita', 'Hitam', 'XXL', '2026-06-04', '2026-06-06', 3, 360000.00, 'menunggu_pembayaran', '2026-06-04 11:04:12', '2026-06-04 11:04:12'),
+(21, 'RB486896', 29, 62, 'Wanita', 'Biru', 'M', '2026-06-04', '2026-06-05', 2, 1000.00, 'menunggu_pembayaran', '2026-06-04 11:30:10', '2026-06-04 11:30:10'),
+(22, 'RB051230', 36, 34, 'Pria', 'Hitam', 'XXL', '2026-06-11', '2026-06-13', 3, 510000.00, 'menunggu_pembayaran', '2026-06-04 13:16:18', '2026-06-04 13:16:18'),
+(23, 'RB051461', 29, 62, 'Wanita', 'Hijau', 'XXL', '2026-06-04', '2026-06-06', 3, 1500.00, 'menunggu_pembayaran', '2026-06-04 13:19:23', '2026-06-04 13:19:23'),
+(24, 'RB356892', 36, 10, 'Wanita', 'Abu', 'XXL', '2026-06-04', '2026-06-06', 3, 1260000.00, 'menunggu_pembayaran', '2026-06-04 13:24:27', '2026-06-04 13:24:27'),
+(25, 'RB762628', 38, 4, 'Pria', 'Hitam', 'S', '2026-06-10', '2026-06-10', 1, 41000.00, 'menunggu_pembayaran', '2026-06-04 14:48:49', '2026-06-04 14:48:49'),
+(26, 'RB355856', 38, 39, 'Pria', 'Hitam', 'L', '2026-06-04', '2026-06-04', 1, 440000.00, 'menunggu_pembayaran', '2026-06-04 14:51:37', '2026-06-04 14:51:37'),
+(27, 'RB847387', 38, 16, 'Wanita', 'Hitam', 'S', '2026-06-05', '2026-06-05', 1, 480000.00, 'menunggu_pembayaran', '2026-06-04 15:02:24', '2026-06-04 15:02:24'),
+(28, 'RB744115', 38, 38, 'Wanita', 'Hitam', 'M', '2026-06-04', '2026-06-04', 1, 200000.00, 'menunggu_pembayaran', '2026-06-04 15:11:25', '2026-06-04 15:11:25'),
+(29, 'RB353774', 40, 57, 'Wanita', 'Hijau', 'XXL', '2026-06-04', '2026-06-06', 3, 690000.00, 'menunggu_pembayaran', '2026-06-04 15:17:14', '2026-06-04 15:17:14'),
+(30, 'RB299824', 40, 62, 'Wanita', 'Biru', 'XXL', '2026-06-04', '2026-06-06', 3, 1500.00, 'menunggu_pembayaran', '2026-06-04 19:56:02', '2026-06-04 19:56:02'),
+(31, 'RB214531', 41, 39, 'Wanita', 'Hijau', 'S', '2026-06-05', '2026-06-07', 3, 1320000.00, 'menunggu_pembayaran', '2026-06-05 19:24:03', '2026-06-05 19:24:03'),
+(32, 'RB877793', 42, 39, 'Wanita', 'Biru', 'M', '2026-06-05', '2026-06-07', 3, 1320000.00, 'menunggu_pembayaran', '2026-06-05 19:39:32', '2026-06-05 19:39:32'),
+(33, 'RB003343', 40, 69, 'Wanita', 'Hijau', 'S', '2026-06-07', '2026-06-09', 3, 450.00, 'pembayaran_dikonfirmasi', '2026-06-07 13:49:32', '2026-06-07 13:50:11'),
+(34, 'RB920962', 40, 68, 'Pria', 'Hijau', 'XXL', '2026-06-08', '2026-06-10', 3, 105.00, 'pembayaran_dikonfirmasi', '2026-06-07 14:10:07', '2026-06-07 14:12:18'),
+(35, 'RB970159', 40, 70, 'Pria', 'Hitam', 'M', '2026-06-07', '2026-06-09', 3, 450000.00, 'menunggu_pembayaran', '2026-06-07 14:12:56', '2026-06-07 14:12:56'),
+(36, 'RB091170', 40, 70, 'Pria', 'Hitam', 'L', '2026-06-08', '2026-06-09', 2, 300000.00, 'menunggu_pembayaran', '2026-06-07 14:18:54', '2026-06-07 14:18:54'),
+(37, 'RB126958', 40, 68, 'Wanita', 'Hijau', 'S', '2026-06-08', '2026-06-09', 2, 70000.00, 'menunggu_pembayaran', '2026-06-07 14:29:35', '2026-06-07 14:29:35');
 
 -- --------------------------------------------------------
 
@@ -119,7 +157,7 @@ CREATE TABLE `produk` (
   `nama` varchar(150) NOT NULL,
   `deskripsi` text DEFAULT NULL,
   `harga_per_hari` decimal(10,2) NOT NULL,
-  `ukuran` enum('S','M','L','XL','XXL') NOT NULL,
+  `ukuran` varchar(50) NOT NULL,
   `gambar` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -130,30 +168,30 @@ CREATE TABLE `produk` (
 
 INSERT INTO `produk` (`id`, `toko_id`, `nama`, `deskripsi`, `harga_per_hari`, `ukuran`, `gambar`, `created_at`) VALUES
 (1, 1, 'Kebaya Brokat ', 'Kebaya brokat mewah untuk pengantin.', 450000.00, 'S', 'imagekebaya.jpeg', '2026-04-08 15:13:15'),
-(2, 1, 'Kebaya Encim S', 'Kebaya encim batik khas.', 280000.00, 'S', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
-(3, 1, 'Baju Adat S', 'Baju adat lengkap untuk acara formal.', 180000.00, 'S', 'imagehijau.jpeg', '2026-04-08 15:13:15'),
+(2, 1, 'Kebaya Encim ', 'Kebaya encim batik khas.', 280000.00, 'S', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
+(3, 1, 'Baju Adat Papua', 'Baju adat Khas Papua Bernuansa Budaya.', 180000.00, 'S', 'imagepapua.jpeg', '2026-04-08 15:13:15'),
 (4, 4, 'Kebaya Beskap Jawa', 'Kebaya tradisional Jawa klasik.', 41000.00, 'M', 'imageproduk.jpeg', '2026-04-08 15:13:15'),
 (5, 4, 'Beskap Putih Polos', 'Beskap putih cocok untuk acara formal.', 120000.00, 'M', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
-(6, 4, 'Jas Adat M', 'Jas adat Indonesia berkualitas.', 380000.00, 'M', 'imagehijau.jpeg', '2026-04-08 15:13:15'),
+(6, 4, 'Jas Adat ', 'Jas adat Indonesia berkualitas.', 380000.00, 'M', 'imagehijau.jpeg', '2026-04-08 15:13:15'),
 (7, 4, 'Kebaya Beskap Solo', 'Kebaya Beludru dan Beskap Jawa bernuansa hitam emas.', 91000.00, 'L', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
 (8, 2, 'Baju Adat Bali', 'Baju adat Bali lengkap dengan aksesoris.', 350000.00, 'L', 'imagehijau.jpeg', '2026-04-08 15:13:15'),
 (9, 3, 'Jawa Jawi Kebaya', 'Kebaya modern sentuhan Jawa.', 180000.00, 'XL', 'imageproduk.jpeg', '2026-04-08 15:13:15'),
-(10, 3, 'Jas Adat XL', 'Jas adat premium kualitas tinggi.', 420000.00, 'XL', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
+(10, 3, 'Jas Adat ', 'Jas adat premium kualitas tinggi.', 420000.00, 'XL', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
 (11, 5, 'Jas Adat Indonesia', 'Jas adat Indonesia berkualitas tinggi.', 380000.00, 'XXL', 'imageproduk.jpeg', '2026-04-08 15:13:15'),
-(12, 5, 'Baju Adat XXL', 'Baju adat exclusive XXL.', 500000.00, 'XXL', 'imagehijau.jpeg', '2026-04-08 15:13:15'),
+(12, 5, 'Baju Adat Sumatra', 'Baju adat Sumatra exclusive .', 500000.00, 'XXL', 'imagehijau.jpeg', '2026-04-08 15:13:15'),
 (13, 6, 'Kebaya Modern', 'Kebaya modern terbaru.', 95000.00, 'S', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
 (14, 6, 'Beskap Premium', 'Beskap premium berkualitas.', 220000.00, 'L', 'imageproduk.jpeg', '2026-04-08 15:13:15'),
 (15, 2, 'Kebaya Cantik', 'Kebaya cantik untuk acara pernikahan.', 310000.00, 'M', 'imagehijau.jpeg', '2026-04-08 15:13:15'),
 (16, 3, 'Jas Formal', 'Jas formal premium.', 480000.00, 'XL', 'imagebiru.jpeg', '2026-04-08 15:13:15'),
-(17, 1, 'Kebaya Brokat M', 'Kebaya brokat elegan ukuran M.', 460000.00, 'M', 'imageproduk.jpeg', '2026-04-07 21:31:14'),
-(18, 1, 'Kebaya Encim M', 'Kebaya encim modern ukuran M.', 290000.00, 'M', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
-(19, 1, 'Baju Adat M', 'Baju adat formal ukuran M.', 190000.00, 'M', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
-(20, 1, 'Kebaya Brokat L', 'Kebaya brokat mewah ukuran L.', 470000.00, 'L', 'imageproduk.jpeg', '2026-04-07 21:31:14'),
-(21, 1, 'Kebaya Encim L', 'Kebaya encim batik ukuran L.', 300000.00, 'L', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
-(22, 1, 'Baju Adat L', 'Baju adat lengkap ukuran L.', 200000.00, 'L', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
-(23, 1, 'Kebaya Brokat XL', 'Kebaya brokat premium ukuran XL.', 480000.00, 'XL', 'imageproduk.jpeg', '2026-04-07 21:31:14'),
-(24, 1, 'Kebaya Encim XL', 'Kebaya encim exclusive ukuran XL.', 310000.00, 'XL', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
-(25, 1, 'Baju Adat XL', 'Baju adat ukuran XL.', 210000.00, 'XL', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
+(17, 1, 'Kebaya Brokat ', 'Kebaya brokat elegan.', 460000.00, 'M', 'imageproduk.jpeg', '2026-04-07 21:31:14'),
+(18, 1, 'Kebaya Encim ', 'Kebaya encim modern.', 290000.00, 'M', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
+(19, 1, 'Baju Adat Kalimantan', 'Baju adat formal Kalimantan.', 190000.00, 'M', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
+(20, 1, 'Kebaya Brokat ', 'Kebaya brokat mewah.', 470000.00, 'L', 'imageproduk.jpeg', '2026-04-07 21:31:14'),
+(21, 1, 'Kebaya Encim ', 'Kebaya encim batik.', 300000.00, 'L', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
+(22, 1, 'Baju Adat', 'Baju adat lengkap.', 200000.00, 'L', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
+(23, 1, 'Kebaya Brokat', 'Kebaya brokat premium.', 480000.00, 'XL', 'imageproduk.jpeg', '2026-04-07 21:31:14'),
+(24, 1, 'Kebaya Encim', 'Kebaya encim exclusive.', 310000.00, 'XL', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
+(25, 1, 'Baju Adat Sulawesi', 'Baju adat Sulawesi Formal.', 210000.00, 'XL', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
 (26, 1, 'Kebaya Brokat XXL', 'Kebaya brokat ukuran XXL.', 490000.00, 'XXL', 'imageproduk.jpeg', '2026-04-07 21:31:14'),
 (27, 1, 'Kebaya Encim XXL', 'Kebaya encim ukuran XXL.', 320000.00, 'XXL', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
 (28, 2, 'Baju Adat Bali S', 'Baju adat Bali ukuran S.', 340000.00, 'S', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
@@ -191,7 +229,15 @@ INSERT INTO `produk` (`id`, `toko_id`, `nama`, `deskripsi`, `harga_per_hari`, `u
 (60, 6, 'Kebaya Modern XXL', 'Kebaya modern ukuran XXL.', 110000.00, 'XXL', 'imagehijau.jpeg', '2026-04-07 21:31:14'),
 (61, 6, 'Beskap Premium XXL', 'Beskap premium ukuran XXL.', 250000.00, 'XXL', 'imagebiru.jpeg', '2026-04-07 21:31:14'),
 (62, 7, 'baju pengantin', 'baju pengantin pria dan wanita', 500.00, 'XL', '1778089374_69fb7d9e4c1ff.jpeg', '2026-05-07 00:42:54'),
-(63, 8, 'baju blangkon', 'blankon khas jawa', 200.00, 'XXL', '1778126936_69fc1058415eb.jpeg', '2026-05-07 11:08:56');
+(63, 8, 'baju blangkon', 'blankon khas jawa', 200.00, 'XXL', '1778126936_69fc1058415eb.jpeg', '2026-05-07 11:08:56'),
+(64, 11, 'baju blangkon', 'bangkon', 300.00, 'L', '1780546394_6a20fb5a979ce.png', '2026-06-04 11:13:14'),
+(65, 13, 'kebaya hijau', 'batik fatayat', 50000.00, 'M', '1780559842_6a212fe285e01.png', '2026-06-04 14:57:22'),
+(66, 13, 'peci', 'peci adat', 5000.00, 'M', '1780560243_6a2131730a42a.png', '2026-06-04 15:04:03'),
+(67, 13, 'baju adat solo', 'baju batik ungu', 70000.00, 'L', '1780560472_6a213258becb4.png', '2026-06-04 15:07:52'),
+(68, 14, 'Baju Adat Kebumen', 'Batik Khas Kebumen', 35000.00, 'S', '1780817299_6a251d93bfffa.jpeg', '2026-06-05 19:43:18'),
+(69, 14, 'Batik Kawung', 'Khas Kebumen', 20000.00, 'M', '1780814848_6a251400a4c6b.jpeg', '2026-06-07 13:47:28'),
+(70, 14, 'Baju Adat Papua', 'The Beatiful Baju Adat Papua', 150000.00, 'S', '1780816331_6a2519cb298c3.jpeg', '2026-06-07 14:12:11'),
+(71, 14, 'Kebaya Kebumen yaho', 'Kebumen pride', 100000.00, 'S,M,L,XL,XXL', '1780817240_6a251d58dbffb.jpeg', '2026-06-07 14:27:20');
 
 -- --------------------------------------------------------
 
@@ -297,7 +343,12 @@ INSERT INTO `toko` (`id`, `nama`, `alamat`, `kota`, `deskripsi`, `created_at`, `
 (6, 'Butik Hana', 'Jl. Sudirman No.123', 'Magelang', NULL, '2026-04-08 15:13:15', NULL),
 (7, 'toko baju ratna', 'ds sidomukti', 'Kebumen', NULL, '2026-05-07 00:41:47', 8),
 (8, 'toko bu tinem', 'magelang mertoyudan', 'Magelang', NULL, '2026-05-07 11:08:25', 21),
-(9, 'toko baju retno', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', 'Kebumen', 'Baju Batik Khas Kebumen', '2026-06-02 10:06:33', 30);
+(9, 'toko baju retno', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', 'Kebumen', 'Baju Batik Khas Kebumen', '2026-06-02 10:06:33', 30),
+(10, 'toko baju ratna', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', 'Yogyakarta', 'tokoku', '2026-06-03 19:40:10', 31),
+(11, 'toko baju retno', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', 'Yogyakarta', 'jawa beatiful', '2026-06-04 11:11:24', 34),
+(12, 'toko bu tinem', 'Dukuh Ketonggo Desa Sidamukti RT 03 RW 02\r\nKecamatan Adimulyo', 'Yogyakarta', 'bsdsdsdsf', '2026-06-04 11:46:36', 35),
+(13, 'akmal cloth', 'Jl. Jeruk 1kg', 'Solo', 'penyewaan pakaian adat terbaik di Solo', '2026-06-04 14:56:01', 39),
+(14, 'lastri bajuku', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', 'Kebumen', 'Baju Adat seluruh Indonesia', '2026-06-05 19:41:56', 43);
 
 -- --------------------------------------------------------
 
@@ -347,7 +398,20 @@ INSERT INTO `users` (`id`, `nama`, `email`, `password`, `alamat`, `phone`, `crea
 (25, 'seller6', 'seller6@gmail.com', '$2y$10$MPmZNDPMCQSD6MFOL6DIYe8KrfHYTs0TXM4i8Ruie4rQ2Zv6aXdZS', NULL, NULL, '2026-05-07 11:19:58', '2026-05-07 11:19:58', 'customer'),
 (27, 'seller7', 'seller7@gmail.com', '$2y$10$YG6XtTc3Ql.QsI4CiLsmoOA2Iu2coxnHBo/09iOP.L05jMXHTYztK', NULL, NULL, '2026-05-07 11:27:08', '2026-05-07 11:27:08', 'seller'),
 (29, 'mas faiz', 'mas@gmail.com', '$2y$10$wAy4.GR6GZLcFxVriVVbfuKwiaqJ8zksILrA9200FOwqacymbTwV.', 'kebumen', '', '2026-06-02 09:59:02', '2026-06-02 10:21:51', 'customer'),
-(30, 'toko bu retno', 'retno@gmail.com', '$2y$10$PEY6Gpgqou0kdHmOQg/vr.Mrk4atB0dS/p2hZBJ38kMYFEpLhjaa.', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', '+62 83144667088', '2026-06-02 10:06:33', '2026-06-02 10:06:33', 'seller');
+(30, 'toko bu retno', 'retno@gmail.com', '$2y$10$PEY6Gpgqou0kdHmOQg/vr.Mrk4atB0dS/p2hZBJ38kMYFEpLhjaa.', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', '+62 83144667088', '2026-06-02 10:06:33', '2026-06-02 10:06:33', 'seller'),
+(31, 'gugu', 'gugu@gmail.com', '$2y$10$dsORWhTDjxv1WsMIZQns1e4aBAwQCXX5B9g8ul7wgmeD92wZB.4Sy', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', '+6283144667083', '2026-06-03 19:40:10', '2026-06-03 19:40:10', 'seller'),
+(32, 'massabil', 'massabil@gmail.com', '$2y$10$3rD0me6.lWvq0GAafbkfyeQP7qrm2qm2KJxxCpA9Awd5IRKICpbdO', 'Kendal', '+6283144667083', '2026-06-04 10:02:47', '2026-06-04 10:02:47', 'customer'),
+(33, 'Test Customer', 'test_customer_12345@gmail.com', '$2y$10$LPOksUYMvzz1bX5QZyIys.EM53xb5TsXmm/FRnPH2zo25iws0yjja', 'Jl. Raya Kebon Jeruk No. 12', '+6281234567890', '2026-06-04 10:54:42', '2026-06-04 10:54:42', 'customer'),
+(34, 'bu mama', 'mama@gmail.com', '$2y$10$DjGJBlS6JGblxC0Mn/mE0Obv1YVu7OBcrz.f9SgR.m2374ZglACy6', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', '+6283144667083', '2026-06-04 11:11:24', '2026-06-04 11:11:24', 'seller'),
+(35, 'sjafvgeh', 'faizkurniawan297@gmail.com', '$2y$10$23MFaJH1a7cFDGOKjhYIReuuh75c7dvUyEbw5cTxTk3Sqj9V5lIY6', 'Dukuh Ketonggo Desa Sidamukti RT 03 RW 02\r\nKecamatan Adimulyo', '+6283144667083', '2026-06-04 11:46:36', '2026-06-04 11:46:36', 'seller'),
+(36, 'mas asep', 'asep@gmail.com', '$2y$10$Mfjrk0fCxu/.8GMG/fKWoeHsZz2QiivRnQWAje5ajsEfoMQUL0o5O', 'Jakarta', '+6283144667083', '2026-06-04 13:07:59', '2026-06-04 13:07:59', 'customer'),
+(37, 'sukron', 'sukron@gmail.com', '$2y$10$R8UcVxCEy2Kqkdd4UovibezHN1nxigYDyA/ImtJDIHwgvRkEym0eG', 'ciputat', '+6281234567890', '2026-06-04 13:20:49', '2026-06-04 13:20:49', 'customer'),
+(38, 'akmal', 'ucokmania@gmail.com', '$2y$10$u9SppTgqCMhRdsgS3NrhEefCaXfZWftllnBeiy34vJvHmG5nw2V1m', '', '+62', '2026-06-04 14:45:45', '2026-06-04 14:50:31', 'customer'),
+(39, 'sabila', 'sabilacantiq@gmail.com', '$2y$10$26h6qMNvJaq5CIsYtb8OyOGXbmNokaSvHkslW3L0TMbQrgZRkpqI6', 'Jl. Jeruk 1kg', '99999999999999', '2026-06-04 14:56:01', '2026-06-04 14:56:01', 'seller'),
+(40, 'gondrong gangteng', 'GONDRONGG4NT@yahoo.com', '$2y$10$KYwyF3H0XANA4/GVbs.2yOsFFmB00Vl.sy96AfTq4x5HIdgUoDmpq', 'UNTIDAR', '+62863643753234', '2026-06-04 15:15:05', '2026-06-07 14:39:23', 'customer'),
+(41, 'mas faiz loh', 'masku@gmail.com', '$2y$10$VskRIzzfSOaso/1gcFFpYu2xK6QOsURxD3LSIXG1gel45rRUgQ.Gm', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', '', '2026-06-05 19:22:02', '2026-06-05 19:24:43', 'customer'),
+(42, 'mas teknik', 'teknik@gmail.com', '$2y$10$meAsRmunuiVOIQ/egLN7Buqh0J8ZiUujhyvvawx39N3rRVitWnOhS', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', '+6283144667083', '2026-06-05 19:37:14', '2026-06-05 19:37:14', 'customer'),
+(43, 'bu retno lastri', 'lastri@gmail.com', '$2y$10$RuUrtMl2Um97LNNMIfN31eG2uOqPZ0KDUgVfVyVt0ZZWKXj6IEQsq', 'Ketonggo Desa Sidomukti RT 03 RW 02 Kecamatan Adimulyo Kabupaten Kebumen', '+6283144667083', '2026-06-05 19:41:56', '2026-06-05 19:41:56', 'seller');
 
 -- --------------------------------------------------------
 
@@ -431,7 +495,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `pesanan`
@@ -443,7 +507,7 @@ ALTER TABLE `pesanan`
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk_varian`
@@ -455,13 +519,13 @@ ALTER TABLE `produk_varian`
 -- AUTO_INCREMENT untuk tabel `toko`
 --
 ALTER TABLE `toko`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `wishlist`

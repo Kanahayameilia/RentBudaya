@@ -512,16 +512,10 @@
     }
 
     function getImageByColor(color) {
-        // Samakan dengan gambar di halaman sewa
-        switch (color) {
-            case 'Biru':
-                return 'Assets/image/imagebiru.jpeg';
-            case 'Hijau':
-                return 'Assets/image/imagehijau.jpeg';
-            case 'Hitam':
-            default:
-                return 'Assets/image/imageproduk.jpeg';
+        if (product && product.gambar && product.gambar.trim() !== '') {
+            return `Assets/image/${product.gambar}`;
         }
+        return 'Assets/image/imageproduk.jpeg';
     }
 
     function renderDetail() {
@@ -531,6 +525,9 @@
         const likedClass = isInWishlist ? 'liked' : '';
         const heartIcon = isInWishlist ? 'fas fa-heart' : 'far fa-heart';
         
+        const modelsAvailable = Array.isArray(product.model) && product.model.length ? product.model : ['Pria', 'Wanita'];
+        const sizesAvailable = Array.isArray(product.ukuran) && product.ukuran.length ? product.ukuran : ['S', 'M', 'L', 'XL', 'XXL'];
+
         container.innerHTML = `
             <div class="product-image-section">
                 <div class="main-image" style="background-image: url('${imageUrl}')">
@@ -564,7 +561,7 @@
                     <div class="info-item">
                         <div class="info-label">Model</div>
                         <div class="model-tags" id="modelTags">
-                            ${['Pria', 'Wanita'].map(m => 
+                            ${modelsAvailable.map(m => 
                                 `<span class="model-tag ${selectedModel === m ? 'active' : ''}" onclick="selectModel('${m}')">${m}</span>`
                             ).join('')}
                         </div>
@@ -580,7 +577,7 @@
                     <div class="info-item">
                         <div class="info-label">Size</div>
                         <div class="size-tags" id="sizeTags">
-                            ${['S', 'M', 'L', 'XL', 'XXL'].map(s => 
+                            ${sizesAvailable.map(s => 
                                 `<span class="size-tag ${selectedSize === s ? 'active' : ''}" onclick="selectSize('${s}')">${s}</span>`
                             ).join('')}
                         </div>
@@ -760,6 +757,13 @@
         const start = new Date(startDate);
         const end = new Date(endDate);
         const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+        
+        const todayStr = getToday();
+        if (startDate < todayStr) {
+            errorMsg.textContent = 'Tanggal mulai tidak boleh di masa lalu!';
+            errorMsg.style.display = 'block';
+            return;
+        }
         
         if (end < start) {
             errorMsg.textContent = 'Tanggal selesai tidak boleh sebelum tanggal mulai!';

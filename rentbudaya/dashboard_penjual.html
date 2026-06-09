@@ -502,6 +502,31 @@
             </table>
         </div>
     </div>
+
+    <!-- Kelola Produk Toko -->
+    <div class="section-card">
+        <div class="section-header">
+            <h2>👕 Kelola Produk Toko</h2>
+            <button class="btn-primary" onclick="openAddProductModal()">+ Tambah Produk</button>
+        </div>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Nama Produk</th>
+                        <th>Deskripsi</th>
+                        <th>Harga per Hari</th>
+                        <th>Ukuran</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="productsBody">
+                    <tr><td colspan="6" class="loading">Memuat data produk...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Toko -->
@@ -532,13 +557,20 @@
         <input type="text" id="productName" placeholder="Nama Produk">
         <textarea id="productDesc" placeholder="Deskripsi" rows="3"></textarea>
         <input type="number" id="productPrice" placeholder="Harga per Hari (Rp)">
-        <select id="productSize">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="XXL">XXL</option>
-        </select>
+        <div style="margin-bottom: 15px; text-align: left;">
+            <label style="display: block; font-size: 14px; font-weight: 600; color: #2C1A0E; margin-bottom: 8px;">Ukuran Tersedia (Bisa pilih satu, beberapa, atau semua)</label>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                <label style="font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: 600; color: #C8593A;">
+                    <input type="checkbox" id="selectAllSizes" style="width: auto; height: auto;"> Semua
+                </label>
+                <div style="width: 1px; height: 15px; background: #E8E0D8; margin: 0 2px;"></div>
+                <label style="font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;"><input type="checkbox" name="productSizes" value="S" style="width: auto; height: auto;"> S</label>
+                <label style="font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;"><input type="checkbox" name="productSizes" value="M" style="width: auto; height: auto;"> M</label>
+                <label style="font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;"><input type="checkbox" name="productSizes" value="L" style="width: auto; height: auto;"> L</label>
+                <label style="font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;"><input type="checkbox" name="productSizes" value="XL" style="width: auto; height: auto;"> XL</label>
+                <label style="font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;"><input type="checkbox" name="productSizes" value="XXL" style="width: auto; height: auto;"> XXL</label>
+            </div>
+        </div>
         <input type="file" id="productImage" accept="image/*">
         <div class="modal-buttons">
             <button class="btn-batal" onclick="closeModal('productModal')">Batal</button>
@@ -564,6 +596,7 @@
     let sellerData = null;
     let currentStore = null;
     let currentTab = 'pending';
+    let editingProductId = 0; // Menyimpan ID produk yang sedang diedit
 
     // Cek login
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
@@ -608,6 +641,7 @@
             const json = await res.json();
             if (json.success && json.data) {
                 currentStore = json.data;
+                loadProducts(); // Muat produk setelah toko berhasil didapatkan
             }
         } catch (err) {
             console.error('Gagal load toko:', err);
@@ -677,6 +711,42 @@
         } catch (err) {
             console.error('Gagal load orders:', err);
             tbody.innerHTML = '<tr><td colspan="6" class="loading">⚠️ Gagal memuat data</td></tr>';
+        }
+    }
+
+    // Mengambil daftar produk dari database berdasarkan toko
+    async function loadProducts() {
+        if (!currentStore) return;
+        const tbody = document.getElementById('productsBody');
+        tbody.innerHTML = '<tr><td colspan="6" class="loading">Memuat data produk...</td></tr>';
+        
+        try {
+            const res = await fetch(`api/produk_penjual.php?toko_id=${currentStore.id}`);
+            const json = await res.json();
+            
+            if (!json.success || json.data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="loading">👕 Belum ada produk terdaftar</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = json.data.map(product => {
+                const imgUrl = product.gambar ? `Assets/image/${product.gambar}` : 'https://placehold.co/50x50/E8E0D8/C8593A?text=Produk';
+                return `
+                    <tr>
+                        <td><img src="${imgUrl}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; background-color: #E8E0D8;"></td>
+                        <td style="font-weight: 600;">${product.nama}</td>
+                        <td>${product.deskripsi || '-'}</td>
+                        <td>Rp ${Number(product.harga_per_hari).toLocaleString('id-ID')}</td>
+                        <td><span class="status-badge" style="background:#E8E0D8; color:#2C1A0E;">${product.ukuran}</span></td>
+                        <td>
+                            <button class="btn-primary" style="padding: 5px 15px; font-size: 12px;" onclick="openEditProductModal(${JSON.stringify(product).replace(/"/g, '&quot;')})">📝 Edit</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        } catch (err) {
+            console.error('Gagal load products:', err);
+            tbody.innerHTML = '<tr><td colspan="6" class="loading">⚠️ Gagal memuat data produk</td></tr>';
         }
     }
 
@@ -776,20 +846,71 @@
         }
     });
 
-    // Tambah Produk
-    document.getElementById('addProductBtn').addEventListener('click', () => {
+    // Tambah & Edit Produk Modal Helpers
+    function openAddProductModal() {
         if (!currentStore) {
             alert('⚠️ Silakan buat toko terlebih dahulu!');
             document.getElementById('manageStoreBtn').click();
             return;
         }
+        editingProductId = 0;
+        document.querySelector('#productModal h3').textContent = '➕ Tambah Produk';
         document.getElementById('productName').value = '';
         document.getElementById('productDesc').value = '';
         document.getElementById('productPrice').value = '';
-        document.getElementById('productSize').value = 'M';
+        document.querySelectorAll('input[name="productSizes"]').forEach(cb => {
+            cb.checked = (cb.value === 'M'); // Default ke ukuran M
+        });
+        document.getElementById('selectAllSizes').checked = false;
         document.getElementById('productImage').value = '';
         document.getElementById('productModal').style.display = 'flex';
+    }
+
+    function openEditProductModal(product) {
+        editingProductId = product.id;
+        document.querySelector('#productModal h3').textContent = '📝 Edit Produk';
+        document.getElementById('productName').value = product.nama || '';
+        document.getElementById('productDesc').value = product.deskripsi || '';
+        document.getElementById('productPrice').value = Math.round(product.harga_per_hari) || '';
+        
+        // Reset dan centang checkbox ukuran yang sesuai
+        document.querySelectorAll('input[name="productSizes"]').forEach(cb => {
+            cb.checked = false;
+        });
+        if (product.ukuran) {
+            const sizes = typeof product.ukuran === 'string' ? product.ukuran.split(',') : (Array.isArray(product.ukuran) ? product.ukuran : []);
+            sizes.forEach(sz => {
+                const cb = document.querySelector(`input[name="productSizes"][value="${sz.trim()}"]`);
+                if (cb) cb.checked = true;
+            });
+        }
+
+        // Sinkronisasi status checkbox "Semua"
+        const allCbs = document.querySelectorAll('input[name="productSizes"]');
+        const allChecked = Array.from(allCbs).every(c => c.checked);
+        document.getElementById('selectAllSizes').checked = allChecked;
+        
+        document.getElementById('productImage').value = '';
+        document.getElementById('productModal').style.display = 'flex';
+    }
+
+    // Inisialisasi Event Listener untuk "Semua" Ukuran
+    document.getElementById('selectAllSizes').addEventListener('change', function() {
+        const checked = this.checked;
+        document.querySelectorAll('input[name="productSizes"]').forEach(cb => {
+            cb.checked = checked;
+        });
     });
+
+    document.querySelectorAll('input[name="productSizes"]').forEach(cb => {
+        cb.addEventListener('change', function() {
+            const allCbs = document.querySelectorAll('input[name="productSizes"]');
+            const allChecked = Array.from(allCbs).every(c => c.checked);
+            document.getElementById('selectAllSizes').checked = allChecked;
+        });
+    });
+
+    document.getElementById('addProductBtn').addEventListener('click', openAddProductModal);
 
     document.getElementById('saveProductBtn').addEventListener('click', async () => {
         if (!currentStore) {
@@ -801,8 +922,15 @@
         const name = document.getElementById('productName').value.trim();
         const desc = document.getElementById('productDesc').value.trim();
         const price = document.getElementById('productPrice').value;
-        const size = document.getElementById('productSize').value;
         const imageFile = document.getElementById('productImage').files[0];
+        
+        // Ambil nilai checkbox ukuran yang dicentang
+        const checkedSizes = Array.from(document.querySelectorAll('input[name="productSizes"]:checked')).map(cb => cb.value);
+        if (checkedSizes.length === 0) {
+            alert('Silakan pilih minimal satu ukuran!');
+            return;
+        }
+        const size = checkedSizes.join(',');
         
         if (!name || !price) {
             alert('Nama dan harga produk wajib diisi!');
@@ -820,6 +948,9 @@
         formData.append('harga_per_hari', price);
         formData.append('ukuran', size);
         if (imageFile) formData.append('gambar', imageFile);
+        if (editingProductId > 0) {
+            formData.append('id', editingProductId);
+        }
         
         try {
             const res = await fetch('api/produk_penjual.php', {
@@ -828,9 +959,10 @@
             });
             const json = await res.json();
             if (json.success) {
-                alert('✅ Produk berhasil ditambahkan!');
+                alert(editingProductId > 0 ? '✅ Produk berhasil diperbarui!' : '✅ Produk berhasil ditambahkan!');
                 closeModal('productModal');
                 loadStats();
+                loadProducts();
             } else {
                 alert('❌ Gagal: ' + json.message);
             }
@@ -845,6 +977,8 @@
     window.switchTab = switchTab;
     window.openValidationModal = openValidationModal;
     window.closeModal = closeModal;
+    window.openAddProductModal = openAddProductModal;
+    window.openEditProductModal = openEditProductModal;
 </script>
 
 </body>
